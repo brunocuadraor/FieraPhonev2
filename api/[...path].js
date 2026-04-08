@@ -54,7 +54,6 @@ async function maybeNotifyWebhook(type, payload) {
       body: JSON.stringify({ type, payload, createdAt: new Date().toISOString() }),
     });
   } catch (error) {
-    // No rompemos la API por fallos del webhook.
     console.error("Webhook error:", error);
   }
 }
@@ -439,14 +438,12 @@ async function handleApi(req, res, pathname) {
   return sendJson(res, 404, { error: "Ruta no encontrada" });
 }
 
-// Ejecuta inicialización a nivel de módulo (solo una vez por instancia).
 const initPromise = ensureDefaultBoss().catch((e) => {
   console.error("ensureDefaultBoss failed:", e);
 });
 
 export default async function handler(req, res) {
   try {
-    // Soporte CORS para el panel interno.
     if (req.method === "OPTIONS") {
       res.writeHead(204, {
         "Access-Control-Allow-Origin": "*",
@@ -457,12 +454,10 @@ export default async function handler(req, res) {
       return;
     }
 
-    // Vercel pasa URLs como string (req.url). Construimos la URL para extraer pathname.
     const host = req.headers.host || "localhost";
     const url = new URL(req.url || "/", `http://${host}`);
     const pathname = url.pathname;
 
-    // Este archivo existe para /api/*; si Vercel lo llama por otra ruta, devolvemos 404.
     if (!pathname.startsWith(API_BASE)) {
       return sendJson(res, 404, { error: "Ruta no encontrada" });
     }
