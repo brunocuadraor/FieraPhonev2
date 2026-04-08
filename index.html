@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FieraPhone — Reparación de Móviles en Castilla y León</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="./assets/fieraphone-logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300;1,9..144,400&family=Orbitron:wght@700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -43,9 +44,10 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;border:none;background:non
 #nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(14,14,12,.88);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06);transition:box-shadow .3s}
 #nav.scrolled{box-shadow:var(--sh-md)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px;padding:0 2.5rem;max-width:1400px;margin:0 auto}
-.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.35rem;letter-spacing:-1px;color:#fff}
-.logo-icon{width:34px;height:34px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem}
-.logo span{color:var(--accent)}
+.logo{display:flex;align-items:center;gap:.7rem;font-weight:900;font-size:1.35rem;letter-spacing:-1px;color:#fff}
+.logo-mark{width:40px;height:40px;border-radius:12px;object-fit:cover;display:block;box-shadow:0 8px 20px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.08)}
+.logo-text{display:inline-flex;align-items:center;line-height:1;font-family:'Orbitron',sans-serif;font-weight:800;letter-spacing:.02em}
+.logo-text .accent{color:#ff3d3d;margin-left:1px}
 .nav-links{display:flex;align-items:center;gap:.15rem}
 .nav-links a{font-size:.88rem;font-weight:600;color:var(--gray-700);padding:.5rem .85rem;border-radius:100px;transition:all .2s}
 .nav-links a:hover{color:#fff;background:rgba(255,255,255,.06)}
@@ -352,7 +354,7 @@ textarea.cf-input{resize:none;min-height:110px}
 footer{background:var(--black);color:rgba(255,255,255,.55)}
 .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:3rem;padding:4rem 2.5rem;max-width:1400px;margin:0 auto}
 .footer-brand p{font-size:.83rem;line-height:1.7;max-width:240px;font-weight:300;margin-top:1rem}
-.footer-brand .logo-icon{background:var(--accent)}
+.footer-brand .logo-mark{width:36px;height:36px;border-radius:11px}
 .footer-col h4{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1.25rem}
 .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.65rem}
 .footer-col ul a{font-size:.83rem;color:rgba(255,255,255,.4);font-weight:300;transition:color .2s}
@@ -409,6 +411,7 @@ footer{background:var(--black);color:rgba(255,255,255,.55)}
 }
 @media(max-width:720px){
   .container{padding:0 1.25rem}.nav-links{display:none}.hamburger{display:flex}
+  .logo{font-size:1.08rem;gap:.55rem}.logo-mark{width:34px;height:34px;border-radius:10px}
   .hero-left{padding:5rem 1.25rem 3rem}
   #rastreo,#servicios,#proceso,#tiendas,#cita,#precios,#opiniones,#faq{padding:4rem 0}
   .srv-grid,.proc-grid,.rv-grid,.cities-grid,.tracker-examples,.form-grid,.cf-grid{grid-template-columns:1fr}
@@ -487,7 +490,10 @@ footer{background:var(--black);color:rgba(255,255,255,.55)}
 <!-- NAV -->
 <header id="nav">
   <div class="nav-inner">
-    <a href="#inicio" class="logo"><div class="logo-icon">🎧</div>Fiera<span>Phone</span></a>
+    <a href="#inicio" class="logo">
+      <img class="logo-mark" src="./assets/fieraphone-logo.png" alt="Logo FieraPhone">
+      <span class="logo-text">Fiera<span class="accent">Phone</span></span>
+    </a>
     <nav class="nav-links">
       <a href="#rastreo">Rastrear pedido</a>
       <a href="#servicios">Servicios</a>
@@ -871,7 +877,10 @@ footer{background:var(--black);color:rgba(255,255,255,.55)}
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
-      <a href="#inicio" class="logo"><div class="logo-icon">📱</div>Fiera<span>Phone</span></a>
+      <a href="#inicio" class="logo">
+        <img class="logo-mark" src="./assets/fieraphone-logo.png" alt="Logo FieraPhone">
+        <span class="logo-text">Fiera<span class="accent">Phone</span></span>
+      </a>
       <p>Cadena líder de reparación de móviles y electrónica en Castilla y León. Profesionales, rápidos y con garantía.</p>
     </div>
     <div class="footer-col"><h4>Servicios</h4><ul><li><a href="#servicios">Reparación de móviles</a></li><li><a href="#servicios">Tablets y portátiles</a></li><li><a href="#servicios">Consolas</a></li><li><a href="#servicios">Accesorios</a></li><li><a href="#precios">Precios orientativos</a></li></ul></div>
