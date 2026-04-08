@@ -1,0 +1,63 @@
+{
+  "repairs": [
+    {
+      "id": "FP-2024-0892",
+      "phone": "653020120",
+      "device": "iPhone 15 Pro Max",
+      "repair": "Sustitucion de pantalla OLED",
+      "status": "in-progress",
+      "statusLabel": "En reparacion",
+      "tech": {
+        "name": "Alejandro M.",
+        "role": "Tecnico Senior"
+      },
+      "steps": [
+        { "n": "Recibido en tienda", "t": "Hoy 10:23", "done": true },
+        { "n": "Diagnostico completado", "t": "Hoy 10:41", "done": true },
+        { "n": "Reparacion en curso", "t": "Iniciada 11:15", "active": true },
+        { "n": "Control de calidad", "t": "Pendiente", "pending": true },
+        { "n": "Listo para recoger", "t": "Estimado: 13:00h", "pending": true }
+      ]
+    },
+    {
+      "id": "FP-2024-1134",
+      "phone": "600000001",
+      "device": "Samsung Galaxy S23 Ultra",
+      "repair": "Cambio de bateria",
+      "status": "done",
+      "statusLabel": "Listo para recoger",
+      "tech": {
+        "name": "Sara V.",
+        "role": "Tecnica Especialista"
+      },
+      "steps": [
+        { "n": "Recibido en tienda", "t": "Ayer 16:30", "done": true },
+        { "n": "Diagnostico completado", "t": "Ayer 16:45", "done": true },
+        { "n": "Reparacion completada", "t": "Ayer 17:30", "done": true },
+        { "n": "Control de calidad", "t": "Ayer 17:55", "done": true },
+        { "n": "Listo para recoger", "t": "Desde ayer 18:00", "done": true }
+      ]
+    },
+    {
+      "id": "FP-2024-0450",
+      "phone": "600000002",
+      "device": "Xiaomi 13 Pro",
+      "repair": "Sustitucion de pantalla - esperando pieza",
+      "status": "waiting",
+      "statusLabel": "Esperando pieza",
+      "tech": {
+        "name": "David R.",
+        "role": "Tecnico"
+      },
+      "steps": [
+        { "n": "Recibido en tienda", "t": "Hace 2 dias", "done": true },
+        { "n": "Diagnostico completado", "t": "Hace 2 dias", "done": true },
+        { "n": "Pieza pedida al proveedor", "t": "Hace 2 dias", "active": true },
+        { "n": "Reparacion en curso", "t": "Estimado: manana", "pending": true },
+        { "n": "Listo para recoger", "t": "Estimado: pasado manana", "pending": true }
+      ]
+    }
+  ],
+  "bookings": [],
+  "contacts": []
+}

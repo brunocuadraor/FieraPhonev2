@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FieraPhone — Reparación de Móviles en Castilla y León</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0E0E0C;--surface:#141414;--black:#0E0E0C;--gray-900:#1C1C1A;
+  --gray-700:#BDBDB0;--gray-500:#9E9E90;--gray-300:#6F6F66;--gray-100:#2A2A25;
+  --accent:#C94B1F;--accent-h:#A83A14;--accent-light:#FBF0EB;--accent-mid:#F0C4B0;
+  --green:#1A7A4A;--green-l:#E8F5EE;--blue:#1A4F8A;--blue-l:#E8F0FA;
+  --amber:#8A5C00;--amber-l:#FFF4D6;
+  --r-sm:8px;--r-md:14px;--r-lg:20px;--r-xl:28px;
+  --sh-sm:0 1px 4px rgba(0,0,0,.06);--sh-md:0 4px 20px rgba(0,0,0,.08);--sh-lg:0 12px 48px rgba(0,0,0,.12);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:#fff;overflow-x:hidden;line-height:1.6}
+a{text-decoration:none;color:inherit}
+button{font-family:'Outfit',sans-serif;cursor:pointer;border:none;background:none}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--gray-300);border-radius:3px}
+.container{max-width:1200px;margin:0 auto;padding:0 2.5rem}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px}
+.tag::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor}
+.tag-accent{background:var(--accent-light);color:var(--accent)}
+.tag-green{background:var(--green-l);color:var(--green)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:.8rem 1.6rem;border-radius:100px;font-size:.9rem;font-weight:700;font-family:'Outfit',sans-serif;transition:all .2s;cursor:pointer;border:2px solid transparent}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:var(--accent-h);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,75,31,.3)}
+.btn-dark{background:var(--black);color:#fff}.btn-dark:hover{background:var(--gray-900);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:#fff;border-color:rgba(255,255,255,.28)}.btn-outline:hover{border-color:#fff;transform:translateY(-2px)}
+.btn-white{background:#fff;color:var(--accent);font-weight:800}.btn-white:hover{background:rgba(255,255,255,.9);transform:translateY(-2px)}
+.btn-transp{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.4)}.btn-transp:hover{border-color:#fff;transform:translateY(-2px)}
+.btn-lg{padding:1rem 2rem;font-size:1rem}.btn-sm{padding:.55rem 1.1rem;font-size:.82rem}
+.s-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem}
+.s-title{font-size:clamp(2rem,3.5vw,2.8rem);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:1rem}
+.s-sub{font-size:1rem;color:var(--gray-500);max-width:520px;font-weight:300;line-height:1.7;margin-bottom:3rem}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(14,14,12,.88);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06);transition:box-shadow .3s}
+#nav.scrolled{box-shadow:var(--sh-md)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px;padding:0 2.5rem;max-width:1400px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.35rem;letter-spacing:-1px;color:#fff}
+.logo-icon{width:34px;height:34px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:.15rem}
+.nav-links a{font-size:.88rem;font-weight:600;color:var(--gray-700);padding:.5rem .85rem;border-radius:100px;transition:all .2s}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.nav-right{display:flex;align-items:center;gap:.75rem}
+.nav-phone{font-size:.85rem;font-weight:500;color:var(--gray-500)}.nav-phone strong{color:#fff}
+.hamburger{display:none;flex-direction:column;gap:5px;padding:.5rem;cursor:pointer}
+.hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:.3s}
+
+/* HERO */
+.hero{padding-top:68px;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+.hero-left{padding:7rem 3rem 6rem 2.5rem;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+.hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:2rem}
+.hero-eyebrow .tag{animation:fadeUp .5s ease both}
+.hero-cities{font-size:.82rem;color:var(--gray-500);animation:fadeUp .5s .1s ease both}
+.hero-h1{font-size:clamp(3rem,5vw,5rem);font-weight:900;letter-spacing:-3px;line-height:.98;margin-bottom:1.75rem;animation:fadeUp .5s .15s ease both}
+.hero-h1 .line2{color:#fff}
+.hero-h1 .stroke{color:transparent;-webkit-text-stroke:2px var(--accent)}
+.hero-h1 .serif{font-family:'Fraunces',serif;font-style:italic;font-weight:300;color:var(--accent);letter-spacing:-2px}
+.hero-desc{font-size:1.05rem;color:rgba(255,255,255,.62);max-width:520px;line-height:1.7;margin-bottom:2.5rem;font-weight:300;animation:fadeUp .5s .2s ease both}
+.hero-actions{display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;animation:fadeUp .5s .25s ease both}
+.hero-trust{margin-top:3rem;padding-top:2rem;border-top:1px solid var(--gray-100);display:flex;gap:2.5rem;animation:fadeUp .5s .3s ease both}
+.trust-num{font-size:1.8rem;font-weight:900;letter-spacing:-1px;line-height:1;display:block}
+.trust-lbl{font-size:.78rem;color:var(--gray-500);margin-top:2px}
+.hero-right{background:linear-gradient(180deg,rgba(201,75,31,.18) 0%,rgba(14,14,12,0) 35%),var(--black);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;animation:fadeIn .8s .1s ease both}
+.h-bg-pat{position:absolute;inset:0;background-image:radial-gradient(circle at 30% 40%,rgba(201,75,31,.18) 0%,transparent 60%),radial-gradient(circle at 80% 80%,rgba(201,75,31,.08) 0%,transparent 50%)}
+.h-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:40px 40px}
+.hero-phone{width:200px;height:400px;background:var(--gray-900);border-radius:36px;border:2px solid rgba(255,255,255,.1);position:relative;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.05);animation:float 5s ease-in-out infinite;z-index:2}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.phone-notch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:60px;height:6px;background:rgba(0,0,0,.8);border-radius:3px;z-index:2}
+.phone-content{position:absolute;inset:0;background:linear-gradient(160deg,#ff6a00,#ff3d00);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:2rem 1.5rem}
+.phone-app-icon{width:56px;height:56px;background:var(--accent);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;box-shadow:0 8px 24px rgba(201,75,31,.4)}
+.phone-app-name{font-size:1.05rem;font-weight:900;color:#fff;letter-spacing:-.5px;text-shadow:0 3px 0 rgba(0,0,0,.18)}
+.phone-status-pill{position:absolute;top:118px;right:-30px;background:#F7D24C;border:1px solid rgba(0,0,0,.12);color:#0E0E0C;font-size:.72rem;font-weight:900;padding:.38rem .75rem;border-radius:8px;display:flex;align-items:center;gap:6px;animation:none;text-transform:uppercase}
+@keyframes pulse-g{0%,100%{opacity:1}50%{opacity:.6}}
+.phone-status-pill::before{content:none}
+.phone-repair-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:.85rem 1rem;width:100%;text-align:left}
+.prc-label{font-size:.65rem;color:rgba(255,255,255,.4);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.prc-value{font-size:.88rem;color:#fff;font-weight:600;margin-top:2px}
+.prc-bar{height:3px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:.6rem;overflow:hidden}
+.prc-progress{height:100%;background:var(--accent);border-radius:2px;width:65%;animation:pa 3s ease-in-out infinite alternate}
+@keyframes pa{0%{width:45%}100%{width:85%}}
+.float-badge{position:absolute;z-index:3;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:.75rem 1rem;box-shadow:0 8px 32px rgba(0,0,0,.2);font-size:.82rem;font-weight:700;color:#fff;display:flex;align-items:flex-start;gap:8px;white-space:normal;line-height:1.15}
+.float-badge>div{display:flex;flex-direction:column;gap:2px}
+.fb-icon{font-size:1.1rem}.fb-sub{font-size:.68rem;font-weight:400;color:var(--gray-500);display:block;line-height:1.05}
+.fb-tl{top:20%;left:3%;animation:float2 4s ease-in-out infinite}
+.fb-br{bottom:20%;right:3%;animation:float2 5s ease-in-out infinite .8s}
+@keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+.phone-mini-badge{position:absolute;z-index:4;font-size:.68rem;font-weight:900;letter-spacing:.04em;padding:.35rem .65rem;border-radius:10px;text-transform:uppercase}
+.phone-mini-badge.pm-30{background:rgba(26,122,74,.25);border:1px solid rgba(26,122,74,.35);color:#79F2B4;right:10px;top:150px}
+.phone-mini-badge.pm-g{background:rgba(26,79,138,.25);border:1px solid rgba(26,79,138,.35);color:#9CC9FF;right:12px;left:auto;bottom:92px}
+.phone-screen-sos{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;margin-top:8px}
+.phone-wrench{font-size:2.2rem;line-height:1}
+
+/* TICKER */
+.ticker-bar{background:var(--black);color:rgba(255,255,255,.6);padding:.65rem 0;overflow:hidden;font-size:.82rem;font-weight:500}
+.ticker-track{display:flex;gap:3rem;white-space:nowrap;animation:ticker 35s linear infinite}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{display:flex;align-items:center;gap:.75rem}
+.t-dot{width:4px;height:4px;background:var(--accent);border-radius:50%;flex-shrink:0}
+
+/* TRACKER */
+#rastreo{padding:6rem 0;background:var(--surface)}
+.tracker-wrap{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.tracker-box{background:var(--black);border-radius:var(--r-xl);padding:3rem;position:relative;overflow:hidden}
+.tracker-bg-glow{position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(201,75,31,.15),transparent 60%);pointer-events:none}
+.tracker-box h3{font-size:1.5rem;font-weight:800;color:#fff;letter-spacing:-.5px;margin-bottom:.5rem}
+.tracker-box>p{font-size:.88rem;color:rgba(255,255,255,.45);margin-bottom:2rem;font-weight:300}
+.tracker-row{display:flex;gap:.75rem;margin-bottom:.75rem}
+.t-input{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:.85rem 1.1rem;color:#fff;font-family:'Outfit',sans-serif;font-size:.95rem;outline:none;transition:border-color .2s}
+.t-input::placeholder{color:rgba(255,255,255,.2)}
+.t-input:focus{border-color:var(--accent)}
+.t-hint{font-size:.7rem;color:rgba(255,255,255,.18)}
+.tracker-result{margin-top:1.5rem;display:none}
+.tracker-result.show{display:block}
+.tr-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.tr-device{font-size:1rem;font-weight:700;color:#fff}
+.tr-id{font-size:.75rem;color:rgba(255,255,255,.3);margin-top:2px}
+.tr-badge{font-size:.72rem;font-weight:700;padding:.35rem .85rem;border-radius:100px}
+.tr-badge.in-progress{background:rgba(201,75,31,.2);color:#F0A080;border:1px solid rgba(201,75,31,.3)}
+.tr-badge.done{background:rgba(26,122,74,.2);color:#4ade80;border:1px solid rgba(26,122,74,.3)}
+.tr-badge.waiting{background:rgba(138,92,0,.2);color:#FFD97D;border:1px solid rgba(138,92,0,.3)}
+.tr-steps{display:flex;flex-direction:column}
+.tr-step{display:flex;gap:1rem;align-items:flex-start;padding-bottom:1.25rem}
+.tr-step:last-child{padding-bottom:0}
+.tr-step-left{display:flex;flex-direction:column;align-items:center}
+.tr-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;z-index:1}
+.tr-icon.done{background:rgba(26,122,74,.25);border:1px solid rgba(26,122,74,.4);color:#4ade80}
+.tr-icon.active{background:rgba(201,75,31,.25);border:2px solid var(--accent);color:#F0A080;box-shadow:0 0 0 4px rgba(201,75,31,.1);animation:pulse-r 2s ease-in-out infinite}
+@keyframes pulse-r{0%,100%{box-shadow:0 0 0 4px rgba(201,75,31,.1)}50%{box-shadow:0 0 0 8px rgba(201,75,31,.05)}}
+.tr-icon.pending{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.2)}
+.tr-line{width:1px;flex:1;background:rgba(255,255,255,.08);margin:.25rem 0}
+.tr-info{flex:1;padding:.1rem 0 0}
+.tr-name{font-size:.88rem;font-weight:600;color:#fff;margin-bottom:2px}
+.tr-name.p{color:rgba(255,255,255,.3)}
+.tr-time{font-size:.72rem;color:rgba(255,255,255,.3)}
+.tr-time.a{color:#F0A080}
+.tr-tech{margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:.75rem}
+.tr-tech-av{width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#fff}
+.tr-tech-name{font-size:.82rem;font-weight:600;color:#fff}
+.tr-tech-role{font-size:.72rem;color:rgba(255,255,255,.35)}
+.tracker-side .s-title{font-size:2.2rem}
+.tracker-examples{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:2rem}
+.te-card{background:var(--bg);border-radius:var(--r-md);padding:1.1rem;border:1px solid var(--gray-100);transition:border-color .2s,transform .2s;cursor:pointer}
+.te-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.te-icon{font-size:1.4rem;margin-bottom:.5rem;display:block}
+.te-label{font-size:.88rem;font-weight:700}
+.te-sub{font-size:.75rem;color:var(--gray-500);font-weight:300;margin-top:2px}
+
+/* SERVICES */
+#servicios{padding:6rem 0;background:var(--bg)}
+.srv-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem}
+.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.srv-card{background:var(--surface);border-radius:var(--r-xl);padding:2.5rem 2rem;border:1px solid var(--gray-100);transition:all .3s;position:relative;overflow:hidden}
+.srv-card:hover{transform:translateY(-6px);box-shadow:var(--sh-lg);border-color:transparent}
+.srv-card::before{content:'';position:absolute;inset:0;border-radius:var(--r-xl);background:linear-gradient(135deg,var(--accent),var(--accent-h));opacity:0;transition:opacity .3s}
+.srv-card:hover::before{opacity:1}
+.srv-card:hover .srv-title,.srv-card:hover .srv-desc{color:#fff}
+.srv-card:hover .srv-list li{color:rgba(255,255,255,.75)}
+.srv-card:hover .srv-list li::before{background:rgba(255,255,255,.6)}
+.srv-card:hover .srv-icon-wrap{background:rgba(255,255,255,.15)}
+.srv-card:hover .srv-price{color:rgba(255,255,255,.7)}
+.srv-card:hover .srv-bottom{border-color:rgba(255,255,255,.15)}
+.srv-card:hover .srv-arrow{background:rgba(255,255,255,.2);color:#fff}
+.srv-icon-wrap{width:52px;height:52px;background:var(--accent-light);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.5rem;position:relative;z-index:1;transition:background .3s}
+.srv-title{font-size:1.2rem;font-weight:800;letter-spacing:-.5px;margin-bottom:.6rem;position:relative;z-index:1;transition:color .3s}
+.srv-desc{font-size:.85rem;color:var(--gray-500);line-height:1.6;margin-bottom:1.25rem;font-weight:300;position:relative;z-index:1;transition:color .3s}
+.srv-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;position:relative;z-index:1}
+.srv-list li{font-size:.82rem;color:var(--gray-500);display:flex;align-items:center;gap:6px;transition:color .3s}
+.srv-list li::before{content:'';width:3px;height:3px;border-radius:50%;background:var(--accent);flex-shrink:0;transition:background .3s}
+.srv-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--gray-100);position:relative;z-index:1;transition:border-color .3s}
+.srv-price{font-size:.82rem;font-weight:600;color:var(--gray-500);transition:color .3s}
+.srv-arrow{width:32px;height:32px;background:var(--bg);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:all .3s}
+
+/* PROCESS */
+#proceso{padding:6rem 0;background:var(--surface)}
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+.proc-card{padding:2rem 1.5rem;border-radius:var(--r-xl);border:1px solid var(--gray-100);background:var(--bg);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s}
+.proc-card:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
+.proc-num{font-size:4rem;font-weight:900;color:var(--gray-100);line-height:1;position:absolute;top:1rem;right:1.25rem;letter-spacing:-3px;transition:color .3s}
+.proc-card:hover .proc-num{color:var(--accent-mid)}
+.proc-icon{font-size:1.6rem;margin-bottom:1rem;display:block}
+.proc-title{font-size:1.05rem;font-weight:800;margin-bottom:.5rem;letter-spacing:-.3px}
+.proc-desc{font-size:.83rem;color:var(--gray-500);line-height:1.6;font-weight:300}
+
+/* NOSOTROS (bloque dentro de PROCESO) */
+.nosotros-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;align-items:start;margin-top:1rem;margin-bottom:2.25rem}
+.nosotros-left{padding-top:.25rem}
+.nosotros-title{font-size:clamp(2.2rem,4.2vw,3.4rem);font-weight:900;letter-spacing:-1.6px;line-height:1.02;text-transform:uppercase}
+.nosotros-sub{color:rgba(255,255,255,.62);font-weight:300;line-height:1.7;margin:1rem 0 1.5rem;max-width:540px}
+.nosotros-xp{display:flex;gap:.75rem;flex-wrap:wrap}
+.xp-pill{font-size:.78rem;font-weight:800;padding:.55rem .9rem;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff}
+.xp-pill-dark{background:rgba(201,75,31,.14);border-color:rgba(201,75,31,.35);color:#F0A080}
+.nosotros-right{display:flex;justify-content:flex-end}
+.nosotros-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.stat-box{border-radius:18px;padding:1.25rem 1.15rem;box-shadow:0 16px 40px rgba(0,0,0,.25)}
+.stat-num{font-size:2.35rem;font-weight:900;letter-spacing:-.08em;line-height:1}
+.stat-label{font-size:.82rem;font-weight:900;margin-top:.35rem;line-height:1.1;letter-spacing:-.2px}
+.stat-yellow{background:#F7D24C;color:#0E0E0C}
+.stat-red{background:#FF6B6B;color:#0E0E0C}
+.stat-green{background:#65E46C;color:#0E0E0C}
+.stat-blue{background:#7ED7FF;color:#0E0E0C}
+.nosotros-stats .stat-label br{line-height:1.25}
+
+/* TIENDAS */
+#tiendas{padding:6rem 0;background:var(--bg)}
+.cities-layout{display:grid;grid-template-columns:5fr 4fr;gap:4rem;align-items:start}
+.cities-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:.5rem}
+.city-card{background:var(--surface);border-radius:var(--r-lg);padding:1.5rem;border:1px solid var(--gray-100);display:flex;flex-direction:column;gap:.6rem;transition:all .25s;cursor:default}
+.city-card:hover{transform:translateY(-3px);box-shadow:var(--sh-md);border-color:var(--accent-mid)}
+.city-card.featured{border-color:var(--accent);grid-column:1/-1;flex-direction:row;align-items:center;background:linear-gradient(135deg,var(--accent-light),var(--surface))}
+.city-icon{width:44px;height:44px;border-radius:12px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.city-name{font-size:1rem;font-weight:800;letter-spacing:-.3px}
+.city-info{font-size:.78rem;color:var(--gray-500);font-weight:300}
+.city-badge{font-size:.68rem;font-weight:700;padding:.2rem .6rem;border-radius:100px;margin-top:auto}
+.cb-m{background:var(--accent-light);color:var(--accent)}.cb-o{background:var(--green-l);color:var(--green)}
+.city-card.featured .city-name{font-size:1.1rem}
+.cities-info{display:flex;flex-direction:column;gap:1.5rem}
+.ci-card{background:var(--surface);border-radius:var(--r-lg);padding:1.75rem;border:1px solid var(--gray-100)}
+.ci-card h3{font-size:1.1rem;font-weight:800;letter-spacing:-.3px;margin-bottom:.6rem}
+.ci-card p{font-size:.85rem;color:var(--gray-500);line-height:1.6;font-weight:300;margin-bottom:1.25rem}
+.hours-t{width:100%;border-collapse:collapse}
+.hours-t tr td{padding:.3rem 0;font-size:.83rem;border-bottom:1px solid var(--gray-100)}
+.hours-t tr:last-child td{border:none}
+.hours-t td:first-child{color:var(--gray-500)}
+.hours-t td:last-child{text-align:right;font-weight:600}
+
+/* CITA */
+#cita{padding:6rem 0;background:var(--black);color:#fff;position:relative;overflow:hidden}
+.cita-bg{position:absolute;inset:0;background:radial-gradient(circle at 20% 50%,rgba(201,75,31,.12),transparent 55%),radial-gradient(circle at 80% 30%,rgba(201,75,31,.06),transparent 45%);pointer-events:none}
+.cita-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:50px 50px}
+.cita-layout{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.cita-left .s-label{color:var(--accent)}.cita-left .s-title{color:#fff;font-size:2.4rem}.cita-left .s-sub{color:rgba(255,255,255,.4)}
+.cita-perks{display:flex;flex-direction:column;gap:.85rem;margin-top:.5rem}
+.cita-perk{display:flex;align-items:flex-start;gap:.85rem}
+.cp-icon{width:36px;height:36px;border-radius:10px;background:rgba(201,75,31,.15);border:1px solid rgba(201,75,31,.25);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.cp-text strong{display:block;font-size:.9rem;font-weight:700;color:#fff;margin-bottom:2px}
+.cp-text span{font-size:.8rem;color:rgba(255,255,255,.4);font-weight:300}
+.booking-form{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-xl);padding:2.5rem}
+.booking-form h3{font-size:1.25rem;font-weight:800;color:#fff;margin-bottom:1.75rem;letter-spacing:-.5px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.fg-full{grid-column:1/-1}
+.f-group{display:flex;flex-direction:column;gap:.5rem}
+.f-label{font-size:.75rem;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.08em;text-transform:uppercase}
+.f-input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:.8rem 1rem;color:#fff;font-family:'Outfit',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s;appearance:none;-webkit-appearance:none}
+.f-input::placeholder{color:rgba(255,255,255,.2)}.f-input:focus{border-color:var(--accent)}
+select.f-input option{background:#1C1C1A;color:#fff}
+textarea.f-input{resize:none;min-height:90px}
+.form-submit-row{margin-top:.75rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.fs-note{font-size:.75rem;color:rgba(255,255,255,.22)}
+
+/* PRECIOS */
+#precios{padding:6rem 0;background:var(--surface)}
+.pricing-layout{display:grid;grid-template-columns:1fr 2fr;gap:4rem;align-items:start}
+.price-note{background:var(--accent-light);border-radius:var(--r-md);padding:1.25rem 1.5rem;font-size:.82rem;color:var(--accent-h);display:flex;gap:.75rem;align-items:flex-start;margin-top:1rem;border:1px solid var(--accent-mid)}
+.price-table{border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--gray-100)}
+.pt-head{background:var(--black);padding:1.25rem 1.5rem;display:flex;justify-content:space-between;align-items:center}
+.pt-head span{font-size:.82rem;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.06em;text-transform:uppercase}
+.pt-filter{display:flex;gap:.5rem}
+.pt-btn{font-size:.75rem;font-weight:700;padding:.35rem .85rem;border-radius:100px;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;border:1px solid rgba(255,255,255,.1);background:transparent;color:rgba(255,255,255,.4)}
+.pt-btn.active,.pt-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.pr-row{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;padding:1rem 1.5rem;border-bottom:1px solid var(--gray-100);transition:background .2s}
+.pr-row:hover{background:var(--bg)}.pr-row:last-child{border:none}
+.pr-icon{font-size:1.1rem;width:28px;text-align:center}
+.pr-name{font-size:.88rem;font-weight:600}.pr-sub{font-size:.75rem;color:var(--gray-500);font-weight:300;margin-top:1px}
+.pr-price{font-size:.95rem;font-weight:800;color:var(--accent);white-space:nowrap}
+
+/* REVIEWS */
+#opiniones{padding:6rem 0;background:var(--bg)}
+.rv-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem}
+.rv-rating{display:flex;align-items:center;gap:1rem}
+.rr-big{font-size:3rem;font-weight:900;letter-spacing:-2px;line-height:1}
+.rr-stars{display:flex;gap:3px;color:#F59E0B;font-size:1.1rem}
+.rr-count{font-size:.82rem;color:var(--gray-500);margin-top:4px}
+.rv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.rv-card{background:var(--surface);border-radius:var(--r-xl);padding:1.75rem;border:1px solid var(--gray-100);transition:transform .25s,box-shadow .25s}
+.rv-card:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
+.rv-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem}
+.rv-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;color:#fff;flex-shrink:0}
+.av-r{background:var(--accent)}.av-b{background:var(--blue)}.av-g{background:var(--green)}.av-a{background:#C97A1F}
+.rv-name{font-size:.9rem;font-weight:700}.rv-city{font-size:.75rem;color:var(--gray-500);font-weight:300}
+.rv-stars{color:#F59E0B;font-size:.85rem;margin-left:auto}
+.rv-text{font-size:.85rem;color:var(--gray-500);line-height:1.65;font-weight:300;font-style:italic}
+.rv-device{margin-top:1rem;padding-top:.85rem;border-top:1px solid var(--gray-100);font-size:.72rem;color:var(--gray-300);font-weight:500;display:flex;align-items:center;gap:6px}
+.rv-device::before{content:'📱';font-size:.82rem}
+
+/* FAQ */
+#faq{padding:6rem 0;background:var(--surface)}
+.faq-layout{display:grid;grid-template-columns:1fr 2fr;gap:5rem;align-items:start}
+.faq-list{display:flex;flex-direction:column;gap:.75rem}
+.faq-item{background:var(--bg);border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--gray-100);transition:border-color .2s}
+.faq-item.open{border-color:var(--accent)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.25rem 1.5rem;cursor:pointer;font-weight:700;font-size:.92rem}
+.faq-icon{width:24px;height:24px;border-radius:50%;background:var(--gray-100);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;transition:all .3s}
+.faq-item.open .faq-icon{background:var(--accent);color:#fff}
+.faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
+.faq-a-inner{overflow:hidden;font-size:.85rem;color:var(--gray-500);line-height:1.7;font-weight:300;padding:0 1.5rem}
+.faq-item.open .faq-a{grid-template-rows:1fr}
+.faq-item.open .faq-a .faq-a-inner{padding:0 1.5rem 1.25rem}
+
+/* CONTACTO */
+#contacto{padding:6rem 0;background:var(--bg)}
+.contacto-layout{display:grid;grid-template-columns:1fr 1.6fr;gap:5rem;align-items:start}
+.contacto-channels{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
+.ch-card{background:var(--surface);border-radius:var(--r-lg);padding:1.5rem;border:1px solid var(--gray-100);display:flex;align-items:flex-start;gap:1.1rem;transition:all .25s;cursor:default}
+.ch-card:hover{transform:translateY(-3px);box-shadow:var(--sh-md);border-color:var(--accent-mid)}
+.ch-icon{width:44px;height:44px;border-radius:12px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.ch-icon.green{background:var(--green-l)}.ch-icon.blue{background:var(--blue-l)}
+.ch-body strong{display:block;font-size:.92rem;font-weight:800;letter-spacing:-.2px;margin-bottom:2px}
+.ch-body span{font-size:.82rem;color:var(--gray-500);font-weight:300}
+.ch-action{margin-left:auto;align-self:center;flex-shrink:0}
+.contacto-form-wrap{background:var(--surface);border-radius:var(--r-xl);padding:2.75rem;border:1px solid var(--gray-100);box-shadow:var(--sh-md)}
+.contacto-form-wrap h3{font-size:1.3rem;font-weight:800;letter-spacing:-.5px;margin-bottom:.4rem}
+.contacto-form-wrap>p{font-size:.88rem;color:var(--gray-500);font-weight:300;margin-bottom:2rem}
+.cf-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.cf-full{grid-column:1/-1}
+.cf-group{display:flex;flex-direction:column;gap:.5rem}
+.cf-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-500)}
+.cf-input{background:var(--bg);border:1.5px solid var(--gray-100);border-radius:10px;padding:.8rem 1rem;color:#fff;font-family:'Outfit',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s;appearance:none;-webkit-appearance:none}
+.cf-input::placeholder{color:var(--gray-300)}.cf-input:focus{border-color:var(--accent)}
+select.cf-input option{background:#fff;color:var(--black)}
+textarea.cf-input{resize:none;min-height:110px}
+.cf-submit-row{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:1.25rem;flex-wrap:wrap}
+.cf-note{font-size:.75rem;color:var(--gray-300)}
+.envio-info{background:var(--accent-light);border:1px solid var(--accent-mid);border-radius:var(--r-md);padding:1.1rem 1.4rem;display:flex;gap:.85rem;align-items:flex-start;margin-bottom:1.5rem}
+.envio-info span:first-child{font-size:1rem;flex-shrink:0;margin-top:.05rem}
+.envio-info p{font-size:.82rem;color:var(--accent-h);line-height:1.6;font-weight:400}
+.cf-tabs{display:flex;gap:.5rem;margin-bottom:1.75rem;background:var(--bg);padding:.3rem;border-radius:100px;border:1px solid var(--gray-100);width:fit-content}
+.cf-tab{font-size:.82rem;font-weight:700;padding:.45rem 1.1rem;border-radius:100px;cursor:pointer;transition:all .2s;color:var(--gray-500);border:none;background:transparent;font-family:'Outfit',sans-serif}
+.cf-tab.active{background:var(--accent);color:#fff}
+.cf-panel{display:none}.cf-panel.active{display:block}
+
+/* CTA BAND */
+.cta-band{background:var(--accent);padding:5rem 2.5rem;text-align:center;position:relative;overflow:hidden}
+.cta-band-bg{position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 40px);z-index:0}
+.cta-band-inner{max-width:940px;margin:0 auto;background:var(--black);border-radius:20px;padding:3.35rem 2rem;position:relative;z-index:1}
+.cta-band h2{font-size:clamp(2rem,4vw,3.5rem);font-weight:900;color:#fff;letter-spacing:-2px;line-height:1.1;margin-bottom:1rem;position:relative;z-index:1}
+.cta-band p{font-size:1.05rem;color:rgba(255,255,255,.7);margin-bottom:2rem;font-weight:300;position:relative;z-index:1}
+.cta-band-btns{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;position:relative;z-index:1}
+.cta-contact-btn{border:2px solid var(--accent);background:transparent}
+.cta-contact-btn:hover{background:rgba(201,75,31,.18);transform:translateY(-2px);border-color:rgba(201,75,31,.95)}
+
+/* FOOTER */
+footer{background:var(--black);color:rgba(255,255,255,.55)}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:3rem;padding:4rem 2.5rem;max-width:1400px;margin:0 auto}
+.footer-brand p{font-size:.83rem;line-height:1.7;max-width:240px;font-weight:300;margin-top:1rem}
+.footer-brand .logo-icon{background:var(--accent)}
+.footer-col h4{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1.25rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+.footer-col ul a{font-size:.83rem;color:rgba(255,255,255,.4);font-weight:300;transition:color .2s}
+.footer-col ul a:hover{color:#fff}
+.contact-items{display:flex;flex-direction:column;gap:.85rem}
+.contact-item{display:flex;align-items:flex-start;gap:.75rem}
+.ci-ico{font-size:.9rem;margin-top:.1rem;width:16px;text-align:center;flex-shrink:0}
+.ci-txt{font-size:.83rem;font-weight:300}
+.ci-txt strong{display:block;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:1px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding:1.5rem 2.5rem;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem}
+.footer-bottom p{font-size:.78rem;color:rgba(255,255,255,.22)}
+.footer-legal{display:flex;gap:1.5rem}
+.footer-legal a{font-size:.78rem;color:rgba(255,255,255,.22);transition:color .2s}.footer-legal a:hover{color:rgba(255,255,255,.6)}
+
+/* WA FLOAT */
+.wa-float{position:fixed;bottom:1.75rem;right:1.75rem;z-index:990;width:54px;height:54px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform .2s,box-shadow .2s;cursor:pointer}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(37,211,102,.5)}
+.internal-trigger{position:fixed;left:8px;bottom:8px;width:10px;height:10px;border-radius:50%;background:transparent;border:1px solid transparent;opacity:.02;z-index:998}
+.internal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:1200;display:none;align-items:center;justify-content:center;padding:1rem}
+.internal-overlay.show{display:flex}
+.internal-modal{width:min(960px,96vw);max-height:92vh;overflow:auto;background:#0f0f0e;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1rem}
+.internal-login{max-width:380px;margin:4rem auto;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.2rem}
+.internal-login h3,.panel-title{color:#fff;font-size:1.1rem;font-weight:800;margin-bottom:.7rem}
+.internal-login p{font-size:.8rem;color:rgba(255,255,255,.45);margin-bottom:.9rem}
+.internal-input{width:100%;margin-bottom:.65rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:.65rem .8rem;color:#fff}
+.internal-error{font-size:.76rem;color:#ff9b8a;min-height:1rem;margin-bottom:.45rem}
+.panel-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.panel-top small{color:rgba(255,255,255,.5)}
+.panel-grid{display:grid;grid-template-columns:1.2fr 2fr;gap:1rem}
+.panel-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1rem}
+.mini-form{display:grid;gap:.5rem}
+.mini-form input,.mini-form select{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:.6rem .7rem;color:#fff}
+.admin-table{width:100%;border-collapse:collapse}
+.admin-table td,.admin-table th{padding:.5rem;border-bottom:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.85);font-size:.78rem}
+.admin-table th{color:rgba(255,255,255,.5);text-align:left}
+.admin-actions{display:flex;gap:.35rem;flex-wrap:wrap}
+.tiny-btn{padding:.35rem .55rem;border-radius:6px;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.12);font-size:.72rem}
+.tiny-btn.warn{background:rgba(201,75,31,.2);border-color:rgba(201,75,31,.4)}
+.panel-tabs{display:flex;gap:.5rem;margin-bottom:.8rem}
+.panel-tab{padding:.45rem .8rem;border-radius:999px;font-size:.75rem;font-weight:700;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.12)}
+.panel-tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.hidden{display:none}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr}.hero-right{min-height:340px}
+  .tracker-wrap,.cita-layout,.cities-layout,.pricing-layout,.faq-layout,.contacto-layout{grid-template-columns:1fr}
+  .srv-grid,.proc-grid{grid-template-columns:1fr 1fr}.rv-grid{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .srv-header,.rv-header{flex-direction:column;align-items:flex-start;gap:1rem}
+  .tracker-examples{grid-template-columns:1fr 1fr}
+}
+@media(max-width:720px){
+  .container{padding:0 1.25rem}.nav-links{display:none}.hamburger{display:flex}
+  .hero-left{padding:5rem 1.25rem 3rem}
+  #rastreo,#servicios,#proceso,#tiendas,#cita,#precios,#opiniones,#faq{padding:4rem 0}
+  .srv-grid,.proc-grid,.rv-grid,.cities-grid,.tracker-examples,.form-grid,.cf-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr;padding:3rem 1.25rem}
+  .footer-bottom{padding:1.25rem;flex-direction:column;text-align:center}
+  .cta-band{padding:3.5rem 1.25rem}.cta-band-inner{padding:2.5rem 1.2rem}.nosotros-grid{grid-template-columns:1fr}.nosotros-stats{grid-template-columns:1fr}.hero-h1{letter-spacing:-2px}
+}
+</style>
+</head>
+<body>
+
+<a href="https://wa.me/34600000000?text=Hola!%20Quiero%20información%20sobre%20reparaciones" class="wa-float" target="_blank">💬</a>
+<button class="internal-trigger" id="internalTrigger" aria-label="Acceso interno"></button>
+<div class="internal-overlay" id="internalOverlay">
+  <div class="internal-modal">
+    <div id="internalLogin" class="internal-login">
+      <h3>Acceso interno</h3>
+      <p>Solo personal autorizado.</p>
+      <div class="internal-error" id="internalError"></div>
+      <input class="internal-input" id="internalUser" placeholder="Usuario" autocomplete="username">
+      <input class="internal-input" id="internalPass" type="password" placeholder="Clave" autocomplete="current-password">
+      <button class="btn btn-primary btn-sm" id="internalLoginBtn">Entrar</button>
+      <button class="btn btn-outline btn-sm" id="internalCloseLogin" style="margin-left:.4rem">Cerrar</button>
+    </div>
+    <div id="internalPanel" class="hidden">
+      <div class="panel-top">
+        <div>
+          <div class="panel-title">Panel interno</div>
+          <small id="internalRoleInfo"></small>
+        </div>
+        <div>
+          <button class="btn btn-outline btn-sm" id="internalLogoutBtn">Salir</button>
+          <button class="btn btn-outline btn-sm" id="internalClosePanel">Ocultar</button>
+        </div>
+      </div>
+      <div class="panel-tabs">
+        <button class="panel-tab active" id="tabOrdersBtn">Pedidos</button>
+        <button class="panel-tab hidden" id="tabWorkersBtn">Trabajadores</button>
+      </div>
+      <div class="panel-grid" id="ordersTab">
+        <div class="panel-card">
+          <h4 style="color:#fff;margin-bottom:.6rem">Nuevo pedido</h4>
+          <form class="mini-form" id="repairCreateForm">
+            <input name="customerName" placeholder="Cliente" required>
+            <input name="phone" placeholder="Telefono" required>
+            <input name="device" placeholder="Dispositivo" required>
+            <input name="repair" placeholder="Averia / trabajo" required>
+            <select name="status"><option value="in-progress">En reparacion</option><option value="waiting">Esperando pieza</option><option value="done">Finalizado</option></select>
+            <button class="btn btn-primary btn-sm" type="submit">Crear pedido</button>
+          </form>
+        </div>
+        <div class="panel-card">
+          <h4 style="color:#fff;margin-bottom:.6rem">Gestion de pedidos</h4>
+          <table class="admin-table">
+            <thead><tr><th>ID</th><th>Cliente</th><th>Dispositivo</th><th>Estado</th><th>Acciones</th></tr></thead>
+            <tbody id="internalRepairsBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel-card hidden" id="workersTab">
+        <h4 style="color:#fff;margin-bottom:.6rem">Trabajadores</h4>
+        <form class="mini-form" id="workerCreateForm" style="margin-bottom:.9rem">
+          <input name="username" placeholder="Usuario trabajador" required>
+          <input name="password" type="password" placeholder="Clave inicial (min 6)" required>
+          <button class="btn btn-primary btn-sm" type="submit">Crear trabajador</button>
+        </form>
+        <table class="admin-table">
+          <thead><tr><th>Usuario</th><th>Estado</th><th>Acciones</th></tr></thead>
+          <tbody id="internalWorkersBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<header id="nav">
+  <div class="nav-inner">
+    <a href="#inicio" class="logo"><div class="logo-icon">🎧</div>Fiera<span>Phone</span></a>
+    <nav class="nav-links">
+      <a href="#rastreo">Rastrear pedido</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#tiendas">Tiendas</a>
+      <a href="#precios">Precios</a>
+      <a href="#opiniones">Opiniones</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="nav-right">
+      <span class="nav-phone">Llámanos <strong>653 020 120</strong></span>
+      <a href="#cita" class="btn btn-primary btn-sm">Pedir cita</a>
+    </div>
+    <div class="hamburger" id="burger"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-left container">
+    <div class="hero-eyebrow">
+      <span class="tag tag-accent">Reparación salvaje</span>
+      <span class="hero-cities">Valladolid · Burgos · Salamanca · León · y más</span>
+    </div>
+    <h1 class="hero-h1">Tu móvil<br><span class="stroke line2">MERECE</span><br>una<br><span class="line2">FIERA</span></h1>
+    <p class="hero-desc">Reparamos lo que otros no se atreven a tocar. Pantallas, baterías, placas... sin miedo y con garantía.</p>
+    <div class="hero-actions">
+      <a href="#cita" class="btn btn-primary btn-lg">Pedir cita ya →</a>
+      <a href="#rastreo" class="btn btn-outline btn-lg">Rastrear pedido</a>
+    </div>
+    <div class="hero-trust">
+      <div><span class="trust-num">+18k</span><span class="trust-lbl">Reparaciones</span></div>
+      <div><span class="trust-num">4.9★</span><span class="trust-lbl">Valoración</span></div>
+      <div><span class="trust-num">4</span><span class="trust-lbl">Ciudades</span></div>
+      <div><span class="trust-num">6m</span><span class="trust-lbl">Garantía</span></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="h-bg-pat"></div><div class="h-grid"></div>
+    <div class="float-badge fb-tl"><span class="fb-icon">🔥</span><div>Garantía 6 meses<span class="fb-sub">En toda reparación</span></div></div>
+    <div class="hero-phone">
+      <div class="phone-notch"></div>
+      <div class="phone-content">
+        <div class="phone-screen-sos">
+          <div class="phone-wrench">🔧</div>
+          <div class="phone-app-name">SOS</div>
+        </div>
+      </div>
+    </div>
+    <div class="float-badge fb-br"><span class="fb-icon">⚡</span><div>Express 1h<span class="fb-sub">Pantallas al momento</span></div></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-bar"><div class="ticker-track" id="ticker"></div></div>
+
+<!-- TRACKER -->
+<section id="rastreo">
+  <div class="container">
+    <div class="tracker-wrap">
+      <div>
+        <div class="tracker-box">
+          <div class="tracker-bg-glow"></div>
+          <h3>Rastrea tu reparación</h3>
+          <p>Introduce tu número de pedido o el teléfono con el que reservaste.</p>
+          <div class="tracker-row">
+            <input class="t-input" id="tInput" type="text" placeholder="Nº pedido o teléfono...">
+            <button class="btn btn-primary" onclick="doTrack()">Buscar</button>
+          </div>
+          <p class="t-hint">Prueba: FP-2024-0892 · FP-2024-1134 · FP-2024-0450</p>
+          <div class="tracker-result" id="tResult"></div>
+        </div>
+      </div>
+      <div class="tracker-side">
+        <div class="s-label">Estado en tiempo real</div>
+        <h2 class="s-title">Sabe siempre dónde<br>está tu dispositivo</h2>
+        <p class="s-sub">Sin llamadas, sin esperas. Consulta el estado desde aquí o por WhatsApp en cualquier momento.</p>
+        <div class="tracker-examples">
+          <div class="te-card" onclick="fillTrack('FP-2024-0892')"><span class="te-icon">🔧</span><div class="te-label">En reparación</div><div class="te-sub">FP-2024-0892 · iPhone 15</div></div>
+          <div class="te-card" onclick="fillTrack('FP-2024-1134')"><span class="te-icon">✅</span><div class="te-label">Listo para recoger</div><div class="te-sub">FP-2024-1134 · Samsung S23</div></div>
+          <div class="te-card" onclick="fillTrack('FP-2024-0450')"><span class="te-icon">⏳</span><div class="te-label">Esperando pieza</div><div class="te-sub">FP-2024-0450 · Xiaomi 13</div></div>
+          <div class="te-card" onclick="fillTrack('FP-2024-0311')"><span class="te-icon">📦</span><div class="te-label">Recogido</div><div class="te-sub">FP-2024-0311 · Motorola G84</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="container">
+    <div class="srv-header">
+      <div><div class="s-label">Qué reparamos</div><h2 class="s-title">Servicios completos<br>para tu tecnología</h2></div>
+      <a href="#cita" class="btn btn-outline">Ver todos los servicios →</a>
+    </div>
+    <div class="srv-grid reveal">
+      <div class="srv-card">
+        <div class="srv-icon-wrap">📱</div>
+        <div class="srv-title">Reparación de móviles</div>
+        <p class="srv-desc">Todas las marcas, todas las averías. Reparamos tu smartphone en el menor tiempo posible con piezas de calidad.</p>
+        <ul class="srv-list"><li>Pantallas rotas y táctil</li><li>Batería y problemas de carga</li><li>Cámara, altavoces, micrófono</li><li>Conectores USB y auriculares</li><li>Problemas de software</li><li>Daño por agua</li></ul>
+        <div class="srv-bottom"><span class="srv-price">Desde 29 €</span><div class="srv-arrow">→</div></div>
+      </div>
+      <div class="srv-card">
+        <div class="srv-icon-wrap">💻</div>
+        <div class="srv-title">Electrónica en general</div>
+        <p class="srv-desc">Más allá del móvil: reparamos tablets, portátiles, consolas y otros dispositivos electrónicos.</p>
+        <ul class="srv-list"><li>Tablets y iPads</li><li>Portátiles y MacBooks</li><li>Consolas PlayStation, Xbox, Switch</li><li>Smartwatches y wearables</li><li>Auriculares y accesorios</li><li>Cámaras digitales</li></ul>
+        <div class="srv-bottom"><span class="srv-price">Desde 39 €</span><div class="srv-arrow">→</div></div>
+      </div>
+      <div class="srv-card">
+        <div class="srv-icon-wrap">🎧</div>
+        <div class="srv-title">Accesorios y protección</div>
+        <p class="srv-desc">Todo lo que tu dispositivo necesita para estar protegido. Amplia selección en todos nuestros puestos.</p>
+        <ul class="srv-list"><li>Fundas y carcasas premium</li><li>Protectores de pantalla templados</li><li>Cargadores originales y compatibles</li><li>Auriculares y altavoces</li><li>Baterías externas y cables</li><li>Adaptadores y hubs</li></ul>
+        <div class="srv-bottom"><span class="srv-price">Desde 5 €</span><div class="srv-arrow">→</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso">
+  <div class="container">
+    <div class="nosotros-grid">
+      <div class="nosotros-left">
+        <div class="s-label">Quiénes somos</div>
+        <h2 class="nosotros-title">No somos un<br>taller<br>cualquiera</h2>
+        <p class="nosotros-sub">Somos la fiera que tu dispositivo necesita. Nacimos con la misión de hacer reparaciones brutales a precios justos.</p>
+        <div class="nosotros-xp">
+          <span class="xp-pill">+5 Años XP</span>
+          <span class="xp-pill">Piezas Originales</span>
+          <span class="xp-pill xp-pill-dark">Sin Miedo</span>
+        </div>
+      </div>
+      <div class="nosotros-right">
+        <div class="nosotros-stats">
+          <div class="stat-box stat-yellow">
+            <div class="stat-num">12k+</div>
+            <div class="stat-label">Móviles<br>reparados</div>
+          </div>
+          <div class="stat-box stat-red">
+            <div class="stat-num">30°</div>
+            <div class="stat-label">Reparación<br>media</div>
+          </div>
+          <div class="stat-box stat-green">
+            <div class="stat-num">98%</div>
+            <div class="stat-label">Clientes<br>satisfechos</div>
+          </div>
+          <div class="stat-box stat-blue">
+            <div class="stat-num">6</div>
+            <div class="stat-label">Meses de<br>garantía</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="s-label">Cómo funciona</div>
+    <h2 class="s-title">Reparación en 4 pasos</h2>
+    <p class="s-sub">Sin sorpresas, sin letra pequeña. Así es como trabajamos en FieraPhone.</p>
+    <div class="proc-grid reveal">
+      <div class="proc-card"><div class="proc-num">01</div><span class="proc-icon">📋</span><div class="proc-title">Diagnóstico gratis</div><p class="proc-desc">Traes tu dispositivo a cualquier puesto y en menos de 15 minutos te decimos qué tiene y cuánto cuesta.</p></div>
+      <div class="proc-card"><div class="proc-num">02</div><span class="proc-icon">✅</span><div class="proc-title">Aceptas el presupuesto</div><p class="proc-desc">Sin compromiso. Si no te convence el precio, recuperas tu dispositivo sin pagar nada. Siempre.</p></div>
+      <div class="proc-card"><div class="proc-num">03</div><span class="proc-icon">🔧</span><div class="proc-title">Reparamos con cuidado</div><p class="proc-desc">Técnicos certificados con piezas de calidad. Puedes rastrear el estado en tiempo real desde esta web.</p></div>
+      <div class="proc-card"><div class="proc-num">04</div><span class="proc-icon">🎉</span><div class="proc-title">Lo recoges reparado</div><p class="proc-desc">Te avisamos por WhatsApp cuando esté listo. Garantía de 6 meses incluida en la reparación.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TIENDAS -->
+<section id="tiendas">
+  <div class="container">
+    <div class="cities-layout">
+      <div>
+        <div class="s-label">Dónde estamos</div>
+        <h2 class="s-title">4 ciudades,<br>siempre cerca</h2>
+        <p class="s-sub">Minipuestos en centros comerciales y kioscos en las principales ciudades de Castilla y León.</p>
+        <div class="cities-grid reveal">
+          <div class="city-card featured"><div class="city-icon">🏙️</div><div><div class="city-name">Valladolid</div><div class="city-info">C.C. Vallsur</div></div><span class="city-badge cb-o" style="margin-left:auto">Abierto</span></div>
+          <div class="city-card"><div class="city-icon">🏛️</div><div class="city-name">Burgos</div><div class="city-info">C.C. El Mirador de Burgos</div><span class="city-badge cb-o">Abierto</span></div>
+          <div class="city-card"><div class="city-icon">🎓</div><div class="city-name">Salamanca</div><div class="city-info">C.C. El Tormes</div><span class="city-badge cb-o">Abierto</span></div>
+          <div class="city-card"><div class="city-icon">🦁</div><div class="city-name">León</div><div class="city-info">C.C. León Plaza</div><span class="city-badge cb-o">Abierto</span></div>
+        </div>
+      </div>
+      <div class="cities-info">
+        <div class="ci-card"><h3>Horarios habituales</h3><p>Los horarios pueden variar según centro comercial. Consulta el de tu ciudad por WhatsApp.</p><table class="hours-t"><tr><td>Lunes — Viernes</td><td>10:00 — 21:30</td></tr><tr><td>Sábados</td><td>10:00 — 21:00</td></tr><tr><td>Domingos y festivos</td><td>11:00 — 20:00</td></tr></table></div>
+        <div class="ci-card"><h3>¿Recogida a domicilio?</h3><p>En Valladolid, Burgos y Salamanca ofrecemos recogida y entrega de tu dispositivo por solo 5 € adicionales.</p><a href="https://wa.me/34600000000" class="btn btn-dark btn-sm" target="_blank">Solicitar recogida →</a></div>
+        <div class="ci-card"><h3>Envío a toda Castilla y León</h3><p>¿No hay puesto en tu ciudad? Envíanos tu dispositivo de forma segura. Gastos de envío gratuitos en reparaciones superiores a 60 €.</p><a href="#cita" class="btn btn-outline btn-sm">Más información →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CITA -->
+<section id="cita">
+  <div class="cita-bg"></div><div class="cita-grid-bg"></div>
+  <div class="container">
+    <div class="cita-layout">
+      <div class="cita-left">
+        <div class="s-label">Servicio premium</div>
+        <h2 class="s-title">Recogida a domicilio<br>sin complicaciones</h2>
+        <p class="s-sub">Recogemos tu dispositivo en casa o en tu trabajo. Completa los datos y te confirmamos por WhatsApp.</p>
+        <div class="cita-perks">
+          <div class="cita-perk"><div class="cp-icon">🚚</div><div class="cp-text"><strong>Recogida en tu puerta</strong><span>En franjas horarias acordadas contigo</span></div></div>
+          <div class="cita-perk"><div class="cp-icon">💬</div><div class="cp-text"><strong>Gestión por WhatsApp</strong><span>Confirmación y seguimiento en el acto</span></div></div>
+          <div class="cita-perk"><div class="cp-icon">🛡️</div><div class="cp-text"><strong>Transporte seguro</strong><span>Tu dispositivo viaja identificado y protegido</span></div></div>
+          <div class="cita-perk"><div class="cp-icon">📋</div><div class="cp-text"><strong>Presupuesto previo</strong><span>Diagnóstico gratis antes de reparar</span></div></div>
+        </div>
+      </div>
+      <div class="booking-form">
+        <h3>Solicitar recogida</h3>
+        <div class="form-grid">
+          <div class="f-group"><label class="f-label" for="pickupName">Nombre</label><input id="pickupName" class="f-input" type="text" placeholder="Tu nombre completo"></div>
+          <div class="f-group"><label class="f-label" for="pickupModel">Modelo de dispositivo</label><input id="pickupModel" class="f-input" type="text" placeholder="Ej: iPhone 15 Pro Max"></div>
+          <div class="f-group fg-full"><label class="f-label" for="pickupAddress">Dirección completa</label><textarea id="pickupAddress" class="f-input" placeholder="Calle, número, piso, código postal, ciudad y referencias para la recogida"></textarea></div>
+        </div>
+        <div class="form-submit-row">
+          <span class="fs-note">Te responderemos por WhatsApp en menos de 15 minutos</span>
+          <button class="btn btn-primary" onclick="pickupByWhatsApp()">Solicitar por WhatsApp →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section id="precios">
+  <div class="container">
+    <div class="pricing-layout">
+      <div>
+        <div class="s-label">Tarifas</div>
+        <h2 class="s-title">Precios<br>orientativos</h2>
+        <p class="s-sub">Transparencia total. Siempre presupuesto exacto gratis antes de tocar tu dispositivo.</p>
+        <div class="price-note"><span>ℹ️</span><span>Los precios varían según modelo. Diagnóstico siempre gratuito y sin compromiso.</span></div>
+      </div>
+      <div>
+        <div class="price-table">
+          <div class="pt-head"><span>Reparaciones más frecuentes</span><div class="pt-filter"><button class="pt-btn active" onclick="filterP('movil',this)">Móvil</button><button class="pt-btn" onclick="filterP('tablet',this)">Tablet</button><button class="pt-btn" onclick="filterP('otros',this)">Otros</button></div></div>
+          <div id="pRows"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPINIONES -->
+<section id="opiniones">
+  <div class="container">
+    <div class="rv-header">
+      <div><div class="s-label">Clientes felices</div><h2 class="s-title">Lo que dicen de nosotros</h2></div>
+      <div class="rv-rating"><div class="rr-big">4.9</div><div><div class="rr-stars">★★★★★</div><div class="rr-count">+1.200 valoraciones verificadas</div></div></div>
+    </div>
+    <div class="rv-grid reveal">
+      <div class="rv-card"><div class="rv-top"><div style="display:flex;align-items:center;gap:.75rem"><div class="rv-av av-r">MR</div><div><div class="rv-name">María R.</div><div class="rv-city">Valladolid</div></div></div><div class="rv-stars">★★★★★</div></div><p class="rv-text">"Llevé mi iPhone con la pantalla rota un jueves por la tarde y en menos de una hora ya lo tenía como nuevo. El precio fue exactamente el que me dijeron, sin sorpresas."</p><div class="rv-device">iPhone 15 Pro — Pantalla</div></div>
+      <div class="rv-card"><div class="rv-top"><div style="display:flex;align-items:center;gap:.75rem"><div class="rv-av av-b">JL</div><div><div class="rv-name">José Luis G.</div><div class="rv-city">Burgos</div></div></div><div class="rv-stars">★★★★★</div></div><p class="rv-text">"El rastreador de pedidos es genial, supe en todo momento cómo iba mi reparación sin tener que llamar. Muy profesionales y amables."</p><div class="rv-device">Samsung Galaxy S24 — Batería</div></div>
+      <div class="rv-card"><div class="rv-top"><div style="display:flex;align-items:center;gap:.75rem"><div class="rv-av av-g">AC</div><div><div class="rv-name">Ana C.</div><div class="rv-city">Salamanca</div></div></div><div class="rv-stars">★★★★★</div></div><p class="rv-text">"Al principio pensé que no habría solución porque se había mojado, pero lo recuperaron completamente. Llevo 4 meses y funciona perfecto."</p><div class="rv-device">Xiaomi 13 Pro — Daño por agua</div></div>
+      <div class="rv-card"><div class="rv-top"><div style="display:flex;align-items:center;gap:.75rem"><div class="rv-av av-a">PD</div><div><div class="rv-name">Pablo D.</div><div class="rv-city">León</div></div></div><div class="rv-stars">★★★★★</div></div><p class="rv-text">"Traje mi PS5 con el lector estropeado. Me dieron presupuesto en el momento, lo dejé y al día siguiente estaba listo. La garantía de 6 meses es un gran plus."</p><div class="rv-device">PlayStation 5 — Lector Blu-ray</div></div>
+      <div class="rv-card"><div class="rv-top"><div style="display:flex;align-items:center;gap:.75rem"><div class="rv-av av-r">LM</div><div><div class="rv-name">Laura M.</div><div class="rv-city">Valladolid</div></div></div><div class="rv-stars">★★★★★</div></div><p class="rv-text">"Reservé cita online y cuando llegué me atendieron directamente sin esperar. El técnico muy atento explicándome todo. Volveré sin duda."</p><div class="rv-device">iPad Air — Conector de carga</div></div>
+      <div class="rv-card"><div class="rv-top"><div style="display:flex;align-items:center;gap:.75rem"><div class="rv-av av-b">SR</div><div><div class="rv-name">Sergio R.</div><div class="rv-city">Palencia</div></div></div><div class="rv-stars">★★★★★</div></div><p class="rv-text">"Servicio de primera. Rápido, más barato que el SAT oficial y los resultados son perfectos. Gracias al equipo de Palencia."</p><div class="rv-device">Motorola Edge 40 — Pantalla</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="faq-layout">
+      <div>
+        <div class="s-label">Preguntas frecuentes</div>
+        <h2 class="s-title">Todo lo que<br>necesitas saber</h2>
+        <p class="s-sub">¿Tienes más preguntas? Escríbenos por WhatsApp y te respondemos al momento.</p>
+        <a href="https://wa.me/34600000000" class="btn btn-dark" target="_blank" style="margin-top:.5rem">Preguntar por WhatsApp →</a>
+      </div>
+      <div class="faq-list" id="faqList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="container">
+    <div class="contacto-layout">
+      <div>
+        <div class="s-label">Escríbenos</div>
+        <h2 class="s-title">Contacto<br>y envíos</h2>
+        <p class="s-sub">¿Tienes una pregunta, quieres pedir presupuesto o enviar tu dispositivo desde fuera de nuestra zona? Estamos aquí.</p>
+        <div class="contacto-channels reveal">
+          <div class="ch-card">
+            <div class="ch-icon green">💬</div>
+            <div class="ch-body">
+              <strong>WhatsApp</strong>
+              <span>Respuesta en menos de 15 minutos · Lun–Dom 10:00–21:30</span>
+            </div>
+            <div class="ch-action"><a href="https://wa.me/34600000000" target="_blank" class="btn btn-primary btn-sm">Abrir →</a></div>
+          </div>
+          <div class="ch-card">
+            <div class="ch-icon">✉️</div>
+            <div class="ch-body">
+              <strong>Email</strong>
+              <span>info@fieraphone.es · Respondemos en menos de 24 h</span>
+            </div>
+            <div class="ch-action"><a href="mailto:info@fieraphone.es" class="btn btn-outline btn-sm">Escribir →</a></div>
+          </div>
+          <div class="ch-card">
+            <div class="ch-icon blue">📞</div>
+            <div class="ch-body">
+              <strong>Teléfono</strong>
+              <span>653 020 120 · Atención directa en tienda</span>
+            </div>
+            <div class="ch-action"><a href="tel:+34653020120" class="btn btn-outline btn-sm">Llamar →</a></div>
+          </div>
+          <div class="ch-card">
+            <div class="ch-icon" style="background:var(--amber-l)">📦</div>
+            <div class="ch-body">
+              <strong>Envío postal</strong>
+              <span>Envíos gratuitos en reparaciones +60 €. Coordina antes por WhatsApp.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="contacto-form-wrap">
+          <h3>Envíanos un mensaje</h3>
+          <p>Preguntas, presupuestos o coordinar un envío. Te respondemos rápido.</p>
+          <div class="cf-tabs">
+            <button class="cf-tab active" onclick="switchTab('consulta',this)">💬 Consulta general</button>
+            <button class="cf-tab" onclick="switchTab('presupuesto',this)">🔧 Presupuesto</button>
+            <button class="cf-tab" onclick="switchTab('envio',this)">📦 Envío postal</button>
+          </div>
+          <div class="cf-panel active" id="tab-consulta">
+            <div class="cf-grid">
+              <div class="cf-group"><label class="cf-label">Nombre</label><input class="cf-input" type="text" placeholder="Tu nombre"></div>
+              <div class="cf-group"><label class="cf-label">Email o teléfono</label><input class="cf-input" type="text" placeholder="Para responderte"></div>
+              <div class="cf-group cf-full"><label class="cf-label">Mensaje</label><textarea class="cf-input" placeholder="¿En qué podemos ayudarte?"></textarea></div>
+            </div>
+          </div>
+          <div class="cf-panel" id="tab-presupuesto">
+            <div class="cf-grid">
+              <div class="cf-group"><label class="cf-label">Nombre</label><input class="cf-input" type="text" placeholder="Tu nombre"></div>
+              <div class="cf-group"><label class="cf-label">Teléfono</label><input class="cf-input" type="tel" placeholder="6XX XXX XXX"></div>
+              <div class="cf-group"><label class="cf-label">Marca y modelo</label><input class="cf-input" type="text" placeholder="Ej: Samsung Galaxy S24 Ultra"></div>
+              <div class="cf-group"><label class="cf-label">Tipo de avería</label><select class="cf-input"><option value="">Selecciona...</option><option>Pantalla rota</option><option>Batería</option><option>Conector de carga</option><option>Cámara</option><option>Daño por agua</option><option>Altavoz / micrófono</option><option>Otro</option></select></div>
+              <div class="cf-group cf-full"><label class="cf-label">Descripción adicional</label><textarea class="cf-input" placeholder="Cuéntanos más: cuándo ocurrió, si se ha caído o mojado..."></textarea></div>
+            </div>
+          </div>
+          <div class="cf-panel" id="tab-envio">
+            <div class="envio-info">
+              <span>ℹ️</span>
+              <p>Antes de enviar tu dispositivo, escríbenos por este formulario o WhatsApp para coordinar el envío y darte instrucciones de embalaje. <strong>Envío de vuelta gratuito en reparaciones superiores a 60 €.</strong></p>
+            </div>
+            <div class="cf-grid">
+              <div class="cf-group"><label class="cf-label">Nombre completo</label><input class="cf-input" type="text" placeholder="Tu nombre"></div>
+              <div class="cf-group"><label class="cf-label">Teléfono</label><input class="cf-input" type="tel" placeholder="6XX XXX XXX"></div>
+              <div class="cf-group"><label class="cf-label">Email</label><input class="cf-input" type="email" placeholder="Para enviarte el seguimiento"></div>
+              <div class="cf-group"><label class="cf-label">Ciudad de origen</label><input class="cf-input" type="text" placeholder="Tu ciudad"></div>
+              <div class="cf-group"><label class="cf-label">Dispositivo y modelo</label><input class="cf-input" type="text" placeholder="Ej: iPhone 15 Pro Max"></div>
+              <div class="cf-group"><label class="cf-label">Avería</label><select class="cf-input"><option value="">Selecciona...</option><option>Pantalla rota</option><option>Batería</option><option>Conector de carga</option><option>Cámara</option><option>Daño por agua</option><option>Otro</option></select></div>
+              <div class="cf-group cf-full"><label class="cf-label">Información adicional</label><textarea class="cf-input" placeholder="Describe la avería, urgencia, si hay seguro de envío, etc."></textarea></div>
+            </div>
+          </div>
+          <div class="cf-submit-row">
+            <span class="cf-note">🔒 Tus datos solo se usan para responderte</span>
+            <button class="btn btn-primary" onclick="contactSubmit(this)">Enviar mensaje →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <div class="cta-band-bg"></div>
+  <div class="cta-band-inner">
+    <h2>¿Tu móvil<br>está roto?</h2>
+    <p>No sufras más. Tráelo a la fiera.</p>
+    <div class="cta-band-btns"><a href="#cita" class="btn btn-transp btn-lg cta-contact-btn">Contactar ahora →</a></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#inicio" class="logo"><div class="logo-icon">📱</div>Fiera<span>Phone</span></a>
+      <p>Cadena líder de reparación de móviles y electrónica en Castilla y León. Profesionales, rápidos y con garantía.</p>
+    </div>
+    <div class="footer-col"><h4>Servicios</h4><ul><li><a href="#servicios">Reparación de móviles</a></li><li><a href="#servicios">Tablets y portátiles</a></li><li><a href="#servicios">Consolas</a></li><li><a href="#servicios">Accesorios</a></li><li><a href="#precios">Precios orientativos</a></li></ul></div>
+    <div class="footer-col"><h4>Empresa</h4><ul><li><a href="#proceso">Cómo trabajamos</a></li><li><a href="#tiendas">Nuestras tiendas</a></li><li><a href="#opiniones">Opiniones</a></li><li><a href="#">Trabaja con nosotros</a></li><li><a href="#">Franquicia</a></li></ul></div>
+    <div class="footer-col"><h4>Contacto</h4><div class="contact-items"><div class="contact-item"><span class="ci-ico">📞</span><div class="ci-txt"><strong>Teléfono</strong>987 000 000</div></div><div class="contact-item"><span class="ci-ico">💬</span><div class="ci-txt"><strong>WhatsApp</strong>600 000 000</div></div><div class="contact-item"><span class="ci-ico">✉️</span><div class="ci-txt"><strong>Email</strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="90f8fffcf1d0f6f9f5e2f1e0f8fffef5bef5e3">[email&#160;protected]</a></div></div><div class="contact-item"><span class="ci-ico">🕐</span><div class="ci-txt"><strong>Horario</strong>Lun–Dom 10:00–21:30</div></div></div></div>
+  </div>
+  <div class="footer-bottom"><p>© 2024 FieraPhone S.L. — Todos los derechos reservados. CIF: B-00000000</p><div class="footer-legal"><a href="#">Aviso legal</a><a href="#">Privacidad</a><a href="#">Cookies</a></div></div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>20));
+const ti=['Reparamos pantallas en menos de 1 hora','Garantía de 6 meses en toda reparación','Diagnóstico gratuito y sin compromiso','Presupuesto previo siempre','Puestos en 4 ciudades de Castilla y León','Más de 18.000 reparaciones realizadas','Técnicos certificados y especializados','Rastreo en tiempo real de tu pedido'];
+const track=document.getElementById('ticker');
+const row=[...ti,...ti].map(t=>`<span class="ticker-item"><span class="t-dot"></span>${t}</span>`).join('');
+track.innerHTML=row+row;
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+const repairs={
+  'FP-2024-0892':{device:'iPhone 15 Pro Max',repair:'Sustitución de pantalla OLED',status:'in-progress',statusLabel:'En reparación',tech:{name:'Alejandro M.',role:'Técnico Senior'},steps:[{n:'Recibido en tienda',t:'Hoy 10:23',done:true},{n:'Diagnóstico completado',t:'Hoy 10:41',done:true},{n:'Reparación en curso',t:'Iniciada 11:15',active:true},{n:'Control de calidad',t:'Pendiente',pending:true},{n:'Listo para recoger',t:'Estimado: 13:00h',pending:true}]},
+  'FP-2024-1134':{device:'Samsung Galaxy S23 Ultra',repair:'Cambio de batería',status:'done',statusLabel:'Listo para recoger',tech:{name:'Sara V.',role:'Técnica Especialista'},steps:[{n:'Recibido en tienda',t:'Ayer 16:30',done:true},{n:'Diagnóstico completado',t:'Ayer 16:45',done:true},{n:'Reparación completada',t:'Ayer 17:30',done:true},{n:'Control de calidad',t:'Ayer 17:55',done:true},{n:'Listo para recoger',t:'Desde ayer 18:00',done:true}]},
+  'FP-2024-0450':{device:'Xiaomi 13 Pro',repair:'Sustitución de pantalla — esperando pieza',status:'waiting',statusLabel:'Esperando pieza',tech:{name:'David R.',role:'Técnico'},steps:[{n:'Recibido en tienda',t:'Hace 2 días',done:true},{n:'Diagnóstico completado',t:'Hace 2 días',done:true},{n:'Pieza pedida al proveedor',t:'Hace 2 días',active:true},{n:'Reparación en curso',t:'Estimado: mañana',pending:true},{n:'Listo para recoger',t:'Estimado: pasado mañana',pending:true}]},
+  'FP-2024-0311':{device:'Motorola Edge G84',repair:'Conector de carga',status:'done',statusLabel:'Recogido',tech:{name:'Marta L.',role:'Técnica'},steps:[{n:'Recibido en tienda',t:'Hace 5 días',done:true},{n:'Diagnóstico completado',t:'Hace 5 días',done:true},{n:'Reparación completada',t:'Hace 4 días',done:true},{n:'Control de calidad',t:'Hace 4 días',done:true},{n:'Recogido por el cliente',t:'Hace 3 días',done:true}]}
+};
+function doTrack(){
+  const val=document.getElementById('tInput').value.trim().toUpperCase();
+  const res=document.getElementById('tResult');
+  const r=repairs[val];
+  if(!r){res.innerHTML='<p style="color:rgba(255,100,80,.8);font-size:.85rem;margin-top:.5rem">No encontramos ese número. Prueba con: FP-2024-0892</p>';res.classList.add('show');return}
+  const sc=r.status==='done'?'done':r.status==='waiting'?'waiting':'in-progress';
+  const steps=r.steps.map((s,i)=>{
+    const cls=s.done?'done':s.active?'active':'pending';
+    const line=i<r.steps.length-1;
+    return`<div class="tr-step"><div class="tr-step-left"><div class="tr-icon ${cls}">${s.done?'✓':s.active?'●':'○'}</div>${line?'<div class="tr-line"></div>':''}</div><div class="tr-info"><div class="tr-name${s.pending?' p':''}">${s.n}</div><div class="tr-time${s.active?' a':''}">${s.t}</div></div></div>`;
+  }).join('');
+  const initials=r.tech.name.split(' ').map(x=>x[0]).join('');
+  res.innerHTML=`<div class="tr-head"><div><div class="tr-device">${r.device}</div><div class="tr-id">${r.repair}</div></div><span class="tr-badge ${sc}">${r.statusLabel}</span></div><div class="tr-steps">${steps}</div><div class="tr-tech"><div class="tr-tech-av">${initials}</div><div><div class="tr-tech-name">${r.tech.name}</div><div class="tr-tech-role">${r.tech.role}</div></div></div>`;
+  res.classList.add('show');
+}
+function fillTrack(id){document.getElementById('tInput').value=id;doTrack();document.getElementById('rastreo').scrollIntoView({behavior:'smooth'})}
+document.getElementById('tInput').addEventListener('keydown',e=>{if(e.key==='Enter')doTrack()});
+const prices={
+  movil:[{i:'📱',n:'Pantalla iPhone (todas las gamas)',s:'Instalación incluida',p:'Desde 49 €'},{i:'📱',n:'Pantalla Samsung Galaxy',s:'OLED y LCD',p:'Desde 39 €'},{i:'📱',n:'Pantalla Xiaomi / Redmi',s:'Instalación incluida',p:'Desde 29 €'},{i:'🔋',n:'Cambio de batería',s:'Todas las marcas',p:'Desde 29 €'},{i:'💧',n:'Daño por agua',s:'Limpieza y recuperación',p:'Desde 45 €'},{i:'🔌',n:'Conector de carga',s:'Todas las marcas',p:'Desde 25 €'},{i:'📸',n:'Cámara trasera / frontal',s:'Sustitución completa',p:'Desde 35 €'},{i:'🔊',n:'Altavoz / micrófono',s:'Sustitución',p:'Desde 22 €'}],
+  tablet:[{i:'📟',n:'Pantalla iPad (todas las generaciones)',s:'Instalación incluida',p:'Desde 79 €'},{i:'📟',n:'Pantalla Samsung Tab',s:'LCD y AMOLED',p:'Desde 59 €'},{i:'🔋',n:'Batería tablet',s:'Todas las marcas',p:'Desde 39 €'},{i:'🔌',n:'Conector de carga tablet',s:'Lightning / USB-C',p:'Desde 29 €'},{i:'💧',n:'Daño por agua tablet',s:'Limpieza y recuperación',p:'Desde 55 €'}],
+  otros:[{i:'🎮',n:'PlayStation 5 — Lector Blu-ray',s:'Limpieza o sustitución',p:'Desde 69 €'},{i:'🎮',n:'Nintendo Switch — Joystick drift',s:'Sustitución joystick',p:'Desde 35 €'},{i:'⌚',n:'Smartwatch — Pantalla',s:'Apple Watch y Android',p:'Desde 59 €'},{i:'💻',n:'Portátil — Pantalla',s:'Todas las gamas',p:'Desde 89 €'},{i:'💻',n:'Portátil — Teclado',s:'Sustitución completa',p:'Desde 49 €'},{i:'🔋',n:'Portátil — Batería',s:'Todas las marcas',p:'Desde 49 €'}]
+};
+function renderP(cat){document.getElementById('pRows').innerHTML=prices[cat].map(p=>`<div class="pr-row"><span class="pr-icon">${p.i}</span><div><div class="pr-name">${p.n}</div><div class="pr-sub">${p.s}</div></div><span class="pr-price">${p.p}</span></div>`).join('')}
+function filterP(cat,btn){document.querySelectorAll('.pt-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderP(cat)}
+renderP('movil');
+const faqs=[
+  {q:'¿El diagnóstico tiene algún coste?',a:'No, el diagnóstico es completamente gratuito y sin compromiso. Te decimos qué tiene tu dispositivo y cuánto costaría repararlo, y tú decides si seguir adelante.'},
+  {q:'¿Cuánto tarda una reparación?',a:'Las más comunes (pantallas, baterías, conectores) suelen estar listas en 1-2 horas el mismo día. Averías más complejas o que requieren pieza especial pueden tardar 1-3 días laborables.'},
+  {q:'¿Qué garantía tienen las reparaciones?',a:'Todas nuestras reparaciones incluyen 6 meses de garantía. Si la reparación falla por nuestra parte en ese periodo, la repetimos sin coste adicional.'},
+  {q:'¿Qué pasa si no encuentro mi número de pedido?',a:'Puedes buscarlo también con el teléfono con el que hiciste la reserva. Si sigues sin encontrarlo, escríbenos por WhatsApp y te lo localizamos al momento.'},
+  {q:'¿Puedo esperar mientras reparan mi dispositivo?',a:'Sí, en la mayoría de nuestros puestos dispones de zona de espera. Para reparaciones express (pantallas, baterías) puedes quedarte mientras lo hacemos.'},
+  {q:'¿Aceptáis todas las marcas?',a:'Sí, trabajamos con todas las marcas principales: Apple, Samsung, Xiaomi, Huawei, Motorola, OnePlus, Sony, OPPO y muchas más.'},
+  {q:'¿Hacéis envíos si no hay tienda en mi ciudad?',a:'Sí. Puedes enviarnos tu dispositivo de forma segura. Los gastos de envío son gratuitos en reparaciones superiores a 60 €. Contáctanos antes para coordinar.'},
+  {q:'¿Utilizáis piezas originales?',a:'Usamos piezas de alta calidad certificadas. Para algunos modelos también ofrecemos piezas OEM a un precio algo superior. Te informaremos de las opciones disponibles.'}
+];
+document.getElementById('faqList').innerHTML=faqs.map((f,i)=>`<div class="faq-item" id="fi${i}"><div class="faq-q" onclick="toggleFaq(${i})"><span>${f.q}</span><div class="faq-icon">+</div></div><div class="faq-a"><div class="faq-a-inner">${f.a}</div></div></div>`).join('');
+function toggleFaq(i){
+  document.querySelectorAll('.faq-item').forEach((item,idx)=>{
+    const isOpen=item.classList.contains('open');
+    const icon=item.querySelector('.faq-icon');
+    if(idx===i){
+      item.classList.toggle('open');
+      icon.textContent=isOpen?'+':'-';
+    }else{
+      item.classList.remove('open');
+      icon.textContent='+';
+    }
+  });
+}
+function switchTab(id, btn) {
+  document.querySelectorAll('.cf-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.cf-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+}
+function contactSubmit(btn) {
+  btn.textContent = '✓ Mensaje enviado';
+  btn.style.background = '#1A7A4A';
+  btn.disabled = true;
+  setTimeout(() => { btn.textContent = 'Enviar mensaje →'; btn.style.background = ''; btn.disabled = false; }, 3500);
+}
+function pickupByWhatsApp(){
+  const name=document.getElementById('pickupName').value.trim();
+  const model=document.getElementById('pickupModel').value.trim();
+  const address=document.getElementById('pickupAddress').value.trim();
+  if(!name||!model||!address){
+    alert('Por favor, completa Nombre, Modelo de dispositivo y Dirección completa.');
+    return;
+  }
+  const msg=`Hola FieraPhone, quiero solicitar una recogida a domicilio.\n\nNombre: ${name}\nModelo de dispositivo: ${model}\nDirección de recogida: ${address}\n\n¿Podéis confirmar disponibilidad y franja horaria? Gracias.`;
+  const wa='https://wa.me/34600000000?text='+encodeURIComponent(msg);
+  window.open(wa,'_blank');
+}
+document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+  anchor.addEventListener('click',e=>{
+    const target=anchor.getAttribute('href');
+    if(!target||target==='#') return;
+    const el=document.querySelector(target);
+    if(!el) return;
+    e.preventDefault();
+    el.scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+<script src="./script.js"></script>
+</body>
+</html>
