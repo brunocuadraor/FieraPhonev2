@@ -12,11 +12,31 @@
         "role": "Tecnico Senior"
       },
       "steps": [
-        { "n": "Recibido en tienda", "t": "Hoy 10:23", "done": true },
-        { "n": "Diagnostico completado", "t": "Hoy 10:41", "done": true },
-        { "n": "Reparacion en curso", "t": "Iniciada 11:15", "active": true },
-        { "n": "Control de calidad", "t": "Pendiente", "pending": true },
-        { "n": "Listo para recoger", "t": "Estimado: 13:00h", "pending": true }
+        {
+          "n": "Recibido en tienda",
+          "t": "Hoy 10:23",
+          "done": true
+        },
+        {
+          "n": "Diagnostico completado",
+          "t": "Hoy 10:41",
+          "done": true
+        },
+        {
+          "n": "Reparacion en curso",
+          "t": "Iniciada 11:15",
+          "active": true
+        },
+        {
+          "n": "Control de calidad",
+          "t": "Pendiente",
+          "pending": true
+        },
+        {
+          "n": "Listo para recoger",
+          "t": "Estimado: 13:00h",
+          "pending": true
+        }
       ]
     },
     {
@@ -31,11 +51,31 @@
         "role": "Tecnica Especialista"
       },
       "steps": [
-        { "n": "Recibido en tienda", "t": "Ayer 16:30", "done": true },
-        { "n": "Diagnostico completado", "t": "Ayer 16:45", "done": true },
-        { "n": "Reparacion completada", "t": "Ayer 17:30", "done": true },
-        { "n": "Control de calidad", "t": "Ayer 17:55", "done": true },
-        { "n": "Listo para recoger", "t": "Desde ayer 18:00", "done": true }
+        {
+          "n": "Recibido en tienda",
+          "t": "Ayer 16:30",
+          "done": true
+        },
+        {
+          "n": "Diagnostico completado",
+          "t": "Ayer 16:45",
+          "done": true
+        },
+        {
+          "n": "Reparacion completada",
+          "t": "Ayer 17:30",
+          "done": true
+        },
+        {
+          "n": "Control de calidad",
+          "t": "Ayer 17:55",
+          "done": true
+        },
+        {
+          "n": "Listo para recoger",
+          "t": "Desde ayer 18:00",
+          "done": true
+        }
       ]
     },
     {
@@ -50,14 +90,45 @@
         "role": "Tecnico"
       },
       "steps": [
-        { "n": "Recibido en tienda", "t": "Hace 2 dias", "done": true },
-        { "n": "Diagnostico completado", "t": "Hace 2 dias", "done": true },
-        { "n": "Pieza pedida al proveedor", "t": "Hace 2 dias", "active": true },
-        { "n": "Reparacion en curso", "t": "Estimado: manana", "pending": true },
-        { "n": "Listo para recoger", "t": "Estimado: pasado manana", "pending": true }
+        {
+          "n": "Recibido en tienda",
+          "t": "Hace 2 dias",
+          "done": true
+        },
+        {
+          "n": "Diagnostico completado",
+          "t": "Hace 2 dias",
+          "done": true
+        },
+        {
+          "n": "Pieza pedida al proveedor",
+          "t": "Hace 2 dias",
+          "active": true
+        },
+        {
+          "n": "Reparacion en curso",
+          "t": "Estimado: manana",
+          "pending": true
+        },
+        {
+          "n": "Listo para recoger",
+          "t": "Estimado: pasado manana",
+          "pending": true
+        }
       ]
     }
   ],
   "bookings": [],
-  "contacts": []
+  "contacts": [],
+  "users": [
+    {
+      "id": "USR-1775635611710",
+      "username": "jefe",
+      "role": "boss",
+      "active": true,
+      "passwordHash": "6b0370b9-f725-4290-ab9d-dee7441cf1b5:a6d9a4048867f79c05f980daa4d63f9e62769a33d80be6e2d9fc6327d4058a134e5003df24239b253bc949ec568fbb6ca731ed9abe6bf7ce93bc4ce84f2fffb4",
+      "createdAt": "2026-04-08T08:06:51.709Z",
+      "updatedAt": "2026-04-08T08:06:51.709Z"
+    }
+  ]
 }
