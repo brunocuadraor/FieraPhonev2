@@ -1,13 +1,15 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
-import { extname, join, normalize } from "node:path";
+import { join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
 import { randomUUID, scryptSync, timingSafeEqual } from "node:crypto";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = normalize(join(__filename, ".."));
 
-const DATA_DIR = join(__dirname, "..", "data");
+// En Vercel el filesystem del proyecto es de solo lectura; /tmp sí es escribible.
+const TMP_BASE = process.env.TMPDIR || process.env.TEMP || "/tmp";
+const DATA_DIR = join(TMP_BASE, "fieraphone-data");
 const DB_PATH = join(DATA_DIR, "db.json");
 
 // Vercel puede reutilizar instancias entre requests, así que el Map vive mientras la lambda esté "warm".
@@ -38,10 +40,7 @@ async function loadDb() {
 }
 
 async function saveDb(data) {
-  // Asegura que el directorio exista en entornos donde el FS puede ser distinto.
-  if (!existsSync(DATA_DIR)) {
-    await import("node:fs").then((m) => m.mkdirSync(DATA_DIR, { recursive: true }));
-  }
+  await mkdir(DATA_DIR, { recursive: true });
   await writeFile(DB_PATH, JSON.stringify(data, null, 2), "utf8");
 }
 
