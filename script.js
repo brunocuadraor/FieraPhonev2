@@ -91,6 +91,8 @@ async function renderWorkers() {
   data.workers.forEach((w) => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
+      <td>${w.fullName || "-"}</td>
+      <td>${w.phone || "-"}</td>
       <td>${w.username}</td>
       <td>${w.active ? "Activo" : "Desactivado"}</td>
       <td>
@@ -189,14 +191,15 @@ function setupInternalAccess() {
 
   getEl("repairCreateForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const payload = Object.fromEntries(fd.entries());
     try {
       await internalApi("/internal/repairs", {
         method: "POST",
         body: JSON.stringify(payload),
       });
-      e.currentTarget.reset();
+      form.reset();
       await renderRepairs();
     } catch (error) {
       alert(error.message || "No se pudo crear");
@@ -206,14 +209,15 @@ function setupInternalAccess() {
   getEl("workerCreateForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     if (internalUser?.role !== "boss") return;
-    const fd = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const payload = Object.fromEntries(fd.entries());
     try {
       await internalApi("/internal/workers", {
         method: "POST",
         body: JSON.stringify(payload),
       });
-      e.currentTarget.reset();
+      form.reset();
       await renderWorkers();
     } catch (error) {
       alert(error.message || "No se pudo crear trabajador");

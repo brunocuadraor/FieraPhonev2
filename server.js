@@ -107,6 +107,8 @@ function verifyPassword(password, storedHash) {
 function sanitizeUser(user) {
   return {
     id: user.id,
+    fullName: user.fullName || "",
+    phone: user.phone || "",
     username: user.username,
     role: user.role,
     active: user.active !== false,
@@ -363,10 +365,12 @@ async function handleApi(req, res, pathname) {
     const user = await requireAuth(req, res, ["boss"]);
     if (!user) return;
     const body = await readBody(req);
+    const fullName = String(body.fullName || "").trim();
+    const phone = String(body.phone || "").trim();
     const username = String(body.username || "").trim().toLowerCase();
     const password = String(body.password || "");
-    if (!username || password.length < 6) {
-      return sendJson(res, 400, { error: "Usuario y clave (min 6) requeridos" });
+    if (!fullName || !username || password.length < 6) {
+      return sendJson(res, 400, { error: "Nombre, usuario y clave (min 6) requeridos" });
     }
     const db = await loadDb();
     const exists = db.users.some((u) => u.username.toLowerCase() === username);
@@ -374,6 +378,8 @@ async function handleApi(req, res, pathname) {
     const now = new Date().toISOString();
     const worker = {
       id: `USR-${Date.now()}`,
+      fullName,
+      phone,
       username,
       role: "worker",
       active: true,
