@@ -1,11 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
-import { join, normalize } from "node:path";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
 import { randomUUID, scryptSync, timingSafeEqual } from "node:crypto";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = normalize(join(__filename, ".."));
 
 // En Vercel el filesystem del proyecto es de solo lectura; /tmp sí es escribible.
 const TMP_BASE = process.env.TMPDIR || process.env.TEMP || "/tmp";
