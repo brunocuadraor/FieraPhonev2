@@ -418,6 +418,14 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;border:none;background:non
 .rv-device{margin-top:1rem;padding-top:.85rem;border-top:1px solid var(--gray-100);font-size:.72rem;color:var(--gray-300);font-weight:500;display:flex;align-items:center;gap:6px}
 .rv-device::before{content:'📱';font-size:.82rem}
 
+/* SATISFACCION */
+#satisfaccion{padding:4.5rem 0;background:var(--surface)}
+.sat-wrap{background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid var(--gray-100);border-radius:var(--r-xl);padding:2.2rem;display:grid;grid-template-columns:1.4fr .8fr;gap:1.4rem;align-items:center}
+.sat-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;letter-spacing:-1px;line-height:1.08;margin-bottom:.6rem}
+.sat-desc{font-size:.95rem;color:var(--gray-500);line-height:1.65;max-width:640px}
+.sat-cta{display:flex;justify-content:flex-end}
+.sat-note{margin-top:.8rem;font-size:.78rem;color:var(--gray-500)}
+
 /* FAQ */
 #faq{padding:6rem 0;background:var(--surface)}
 .faq-layout{display:grid;grid-template-columns:1fr 2fr;gap:5rem;align-items:start}
@@ -539,7 +547,9 @@ footer{background:var(--black);color:rgba(255,255,255,.55)}
   .hero-left{padding:5rem 1.25rem 3rem}
   .hero-h1 .h-white{transform:none}
   #rastreo,#servicios,#proceso,#tiendas,#precios,#opiniones,#faq{padding:4rem 0}
+  #satisfaccion{padding:3.2rem 0}
   .srv-grid,.proc-grid,.rv-grid,.cities-grid,.tracker-examples,.form-grid,.cf-grid{grid-template-columns:1fr}
+  .sat-wrap{grid-template-columns:1fr;padding:1.5rem}.sat-cta{justify-content:flex-start}
   .footer-top{grid-template-columns:1fr;padding:3rem 1.25rem}
   .footer-bottom{padding:1.25rem;flex-direction:column;text-align:center}
   .cta-band{padding:3.5rem 1.25rem}.cta-band-inner{padding:2.5rem 1.2rem}.nosotros-grid{grid-template-columns:1fr}.nosotros-stats{grid-template-columns:1fr}.hero-h1{letter-spacing:-2px}
@@ -859,6 +869,23 @@ footer{background:var(--black);color:rgba(255,255,255,.55)}
       <div class="rv-card"><div class="rv-top"><div style="display:flex;align-items:center;gap:.75rem"><div class="rv-av av-a">PD</div><div><div class="rv-name">Pablo D.</div><div class="rv-city">León</div></div></div><div class="rv-stars">★★★★★</div></div><p class="rv-text">"Traje mi PS5 con el lector estropeado. Me dieron presupuesto en el momento, lo dejé y al día siguiente estaba listo. La garantía de 6 meses es un gran plus."</p><div class="rv-device">PlayStation 5 — Lector Blu-ray</div></div>
       <div class="rv-card"><div class="rv-top"><div style="display:flex;align-items:center;gap:.75rem"><div class="rv-av av-r">LM</div><div><div class="rv-name">Laura M.</div><div class="rv-city">Valladolid</div></div></div><div class="rv-stars">★★★★★</div></div><p class="rv-text">"Reservé cita online y cuando llegué me atendieron directamente sin esperar. El técnico muy atento explicándome todo. Volveré sin duda."</p><div class="rv-device">iPad Air — Conector de carga</div></div>
       <div class="rv-card"><div class="rv-top"><div style="display:flex;align-items:center;gap:.75rem"><div class="rv-av av-b">SR</div><div><div class="rv-name">Sergio R.</div><div class="rv-city">Palencia</div></div></div><div class="rv-stars">★★★★★</div></div><p class="rv-text">"Servicio de primera. Rápido, más barato que el SAT oficial y los resultados son perfectos. Gracias al equipo de Palencia."</p><div class="rv-device">Motorola Edge 40 — Pantalla</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SATISFACCION -->
+<section id="satisfaccion">
+  <div class="container">
+    <div class="sat-wrap reveal">
+      <div>
+        <div class="s-label">Tu experiencia importa</div>
+        <h2 class="sat-title">Formulario de Satisfacción FieraPhone</h2>
+        <p class="sat-desc">Si ya te atendimos, cuéntanos cómo fue tu experiencia. Nos ayuda a mejorar el servicio y a seguir afinando cada reparación.</p>
+        <p class="sat-note">Solo tardas 1-2 minutos en completarlo.</p>
+      </div>
+      <div class="sat-cta">
+        <a class="btn btn-primary btn-lg" target="_blank" rel="noopener noreferrer" href="https://docs.google.com/forms/d/e/1FAIpQLScqAAtWy8VIaby3ibYxZFeRj9dxH3kWHUQpeaFW3Clj_0HKcg/viewform?usp=header">Abrir formulario →</a>
+      </div>
     </div>
   </div>
 </section>
