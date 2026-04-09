@@ -383,30 +383,6 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;border:none;background:non
 .hours-t td:first-child{color:var(--gray-500)}
 .hours-t td:last-child{text-align:right;font-weight:600}
 
-/* CITA */
-#cita{padding:6rem 0;background:var(--black);color:#fff;position:relative;overflow:hidden}
-.cita-bg{position:absolute;inset:0;background:radial-gradient(circle at 20% 50%,rgba(201,75,31,.12),transparent 55%),radial-gradient(circle at 80% 30%,rgba(201,75,31,.06),transparent 45%);pointer-events:none}
-.cita-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:50px 50px}
-.cita-layout{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
-.cita-left .s-label{color:var(--accent)}.cita-left .s-title{color:#fff;font-size:2.4rem}.cita-left .s-sub{color:rgba(255,255,255,.4)}
-.cita-perks{display:flex;flex-direction:column;gap:.85rem;margin-top:.5rem}
-.cita-perk{display:flex;align-items:flex-start;gap:.85rem}
-.cp-icon{width:36px;height:36px;border-radius:10px;background:rgba(201,75,31,.15);border:1px solid rgba(201,75,31,.25);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
-.cp-text strong{display:block;font-size:.9rem;font-weight:700;color:#fff;margin-bottom:2px}
-.cp-text span{font-size:.8rem;color:rgba(255,255,255,.4);font-weight:300}
-.booking-form{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-xl);padding:2.5rem}
-.booking-form h3{font-size:1.25rem;font-weight:800;color:#fff;margin-bottom:1.75rem;letter-spacing:-.5px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.fg-full{grid-column:1/-1}
-.f-group{display:flex;flex-direction:column;gap:.5rem}
-.f-label{font-size:.75rem;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.08em;text-transform:uppercase}
-.f-input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:.8rem 1rem;color:#fff;font-family:'Outfit',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s;appearance:none;-webkit-appearance:none}
-.f-input::placeholder{color:rgba(255,255,255,.2)}.f-input:focus{border-color:var(--accent)}
-select.f-input option{background:#1C1C1A;color:#fff}
-textarea.f-input{resize:none;min-height:90px}
-.form-submit-row{margin-top:.75rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
-.fs-note{font-size:.75rem;color:rgba(255,255,255,.22)}
-
 /* PRECIOS */
 #precios{padding:6rem 0;background:var(--surface)}
 .pricing-layout{display:grid;grid-template-columns:1fr 2fr;gap:4rem;align-items:start}
@@ -562,7 +538,7 @@ footer{background:var(--black);color:rgba(255,255,255,.55)}
   .logo{font-size:1.08rem;gap:.55rem}.logo-mark{width:34px;height:34px;border-radius:10px}
   .hero-left{padding:5rem 1.25rem 3rem}
   .hero-h1 .h-white{transform:none}
-  #rastreo,#servicios,#proceso,#tiendas,#cita,#precios,#opiniones,#faq{padding:4rem 0}
+  #rastreo,#servicios,#proceso,#tiendas,#precios,#opiniones,#faq{padding:4rem 0}
   .srv-grid,.proc-grid,.rv-grid,.cities-grid,.tracker-examples,.form-grid,.cf-grid{grid-template-columns:1fr}
   .footer-top{grid-template-columns:1fr;padding:3rem 1.25rem}
   .footer-bottom{padding:1.25rem;flex-direction:column;text-align:center}
@@ -656,7 +632,7 @@ footer{background:var(--black);color:rgba(255,255,255,.55)}
     </nav>
     <div class="nav-right">
       <span class="nav-phone">Llámanos <strong>653 020 120</strong></span>
-      <a href="#cita" class="btn btn-primary btn-sm">Pedir cita</a>
+      <a href="#contacto" class="btn btn-primary btn-sm">Contactar</a>
     </div>
     <div class="hamburger" id="burger"><span></span><span></span><span></span></div>
   </div>
@@ -677,7 +653,7 @@ footer{background:var(--black);color:rgba(255,255,255,.55)}
     </h1>
     <p class="hero-desc">Reparamos lo que otros no se atreven a tocar. Pantallas, baterías, placas... sin miedo y con garantía.</p>
     <div class="hero-actions">
-      <a href="#cita" class="btn btn-primary btn-lg">Pedir cita ya →</a>
+      <a href="#contacto" class="btn btn-primary btn-lg">Contactar ahora →</a>
       <a href="#rastreo" class="btn btn-outline btn-lg">Rastrear pedido</a>
     </div>
     <div class="hero-trust">
@@ -700,9 +676,7 @@ footer{background:var(--black);color:rgba(255,255,255,.55)}
               <div class="call-name">Fiera</div>
               <div class="call-sub">Videollamada</div>
             </div>
-            <div class="phone-call-bottom">
-              <div class="call-btn red" aria-label="Colgar">📞</div>
-            </div>
+            <div class="phone-call-bottom"></div>
           </div>
         </div>
         <div class="phone-homebar"></div>
@@ -752,7 +726,7 @@ footer{background:var(--black);color:rgba(255,255,255,.55)}
   <div class="container">
     <div class="srv-header">
       <div><div class="s-label">Qué reparamos</div><h2 class="s-title">Servicios completos<br>para tu tecnología</h2></div>
-      <a href="#cita" class="btn btn-outline">Ver todos los servicios →</a>
+      <a href="#contacto" class="btn btn-outline">Ver todos los servicios →</a>
     </div>
     <div class="srv-grid reveal">
       <div class="srv-card">
@@ -845,39 +819,7 @@ footer{background:var(--black);color:rgba(255,255,255,.55)}
       <div class="cities-info">
         <div class="ci-card"><h3>Horarios habituales</h3><p>Los horarios pueden variar según centro comercial. Consulta el de tu ciudad por WhatsApp.</p><table class="hours-t"><tr><td>Lunes — Viernes</td><td>10:00 — 21:30</td></tr><tr><td>Sábados</td><td>10:00 — 21:00</td></tr><tr><td>Domingos y festivos</td><td>11:00 — 20:00</td></tr></table></div>
         <div class="ci-card"><h3>¿Recogida a domicilio?</h3><p>En Valladolid, Burgos y Salamanca ofrecemos recogida y entrega de tu dispositivo por solo 5 € adicionales.</p><a href="https://wa.me/34600000000" class="btn btn-dark btn-sm" target="_blank">Solicitar recogida →</a></div>
-        <div class="ci-card"><h3>Envío a toda Castilla y León</h3><p>¿No hay puesto en tu ciudad? Envíanos tu dispositivo de forma segura. Gastos de envío gratuitos en reparaciones superiores a 60 €.</p><a href="#cita" class="btn btn-outline btn-sm">Más información →</a></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CITA -->
-<section id="cita">
-  <div class="cita-bg"></div><div class="cita-grid-bg"></div>
-  <div class="container">
-    <div class="cita-layout">
-      <div class="cita-left reveal">
-        <div class="s-label">Servicio premium</div>
-        <h2 class="s-title">Recogida a domicilio<br>sin complicaciones</h2>
-        <p class="s-sub">Recogemos tu dispositivo en casa o en tu trabajo. Completa los datos y te confirmamos por WhatsApp.</p>
-        <div class="cita-perks">
-          <div class="cita-perk"><div class="cp-icon">🚚</div><div class="cp-text"><strong>Recogida en tu puerta</strong><span>En franjas horarias acordadas contigo</span></div></div>
-          <div class="cita-perk"><div class="cp-icon">💬</div><div class="cp-text"><strong>Gestión por WhatsApp</strong><span>Confirmación y seguimiento en el acto</span></div></div>
-          <div class="cita-perk"><div class="cp-icon">🛡️</div><div class="cp-text"><strong>Transporte seguro</strong><span>Tu dispositivo viaja identificado y protegido</span></div></div>
-          <div class="cita-perk"><div class="cp-icon">📋</div><div class="cp-text"><strong>Presupuesto previo</strong><span>Diagnóstico gratis antes de reparar</span></div></div>
-        </div>
-      </div>
-      <div class="booking-form reveal">
-        <h3>Solicitar recogida</h3>
-        <div class="form-grid">
-          <div class="f-group"><label class="f-label" for="pickupName">Nombre</label><input id="pickupName" class="f-input" type="text" placeholder="Tu nombre completo"></div>
-          <div class="f-group"><label class="f-label" for="pickupModel">Modelo de dispositivo</label><input id="pickupModel" class="f-input" type="text" placeholder="Ej: iPhone 15 Pro Max"></div>
-          <div class="f-group fg-full"><label class="f-label" for="pickupAddress">Dirección completa</label><textarea id="pickupAddress" class="f-input" placeholder="Calle, número, piso, código postal, ciudad y referencias para la recogida"></textarea></div>
-        </div>
-        <div class="form-submit-row">
-          <span class="fs-note">Te responderemos por WhatsApp en menos de 15 minutos</span>
-          <button class="btn btn-primary" onclick="pickupByWhatsApp()">Solicitar por WhatsApp →</button>
-        </div>
+        <div class="ci-card"><h3>Envío a toda Castilla y León</h3><p>¿No hay puesto en tu ciudad? Envíanos tu dispositivo de forma segura. Gastos de envío gratuitos en reparaciones superiores a 60 €.</p><a href="#contacto" class="btn btn-outline btn-sm">Más información →</a></div>
       </div>
     </div>
   </div>
@@ -1034,7 +976,7 @@ footer{background:var(--black);color:rgba(255,255,255,.55)}
   <div class="cta-band-inner">
     <h2>¿Tu móvil<br>está roto?</h2>
     <p>No sufras más. Tráelo a la fiera.</p>
-    <div class="cta-band-btns"><a href="#cita" class="btn btn-transp btn-lg cta-contact-btn">Contactar ahora →</a></div>
+    <div class="cta-band-btns"><a href="#contacto" class="btn btn-transp btn-lg cta-contact-btn">Contactar ahora →</a></div>
   </div>
 </div>
 
@@ -1079,8 +1021,6 @@ const fxGroups=[
   {sel:'.contacto-channels .ch-card',mode:'up',step:90},
   {sel:'#rastreo .tracker-box',mode:'left',step:0},
   {sel:'#rastreo .tracker-side',mode:'right',step:0},
-  {sel:'#cita .cita-left',mode:'left',step:0},
-  {sel:'#cita .booking-form',mode:'right',step:0},
   {sel:'#precios .pricing-layout > div',mode:'lr',step:120},
   {sel:'#faq .faq-layout > div',mode:'lr',step:120},
 ];
@@ -1171,18 +1111,6 @@ function contactSubmit(btn) {
   btn.style.background = '#1A7A4A';
   btn.disabled = true;
   setTimeout(() => { btn.textContent = 'Enviar mensaje →'; btn.style.background = ''; btn.disabled = false; }, 3500);
-}
-function pickupByWhatsApp(){
-  const name=document.getElementById('pickupName').value.trim();
-  const model=document.getElementById('pickupModel').value.trim();
-  const address=document.getElementById('pickupAddress').value.trim();
-  if(!name||!model||!address){
-    alert('Por favor, completa Nombre, Modelo de dispositivo y Dirección completa.');
-    return;
-  }
-  const msg=`Hola FieraPhone, quiero solicitar una recogida a domicilio.\n\nNombre: ${name}\nModelo de dispositivo: ${model}\nDirección de recogida: ${address}\n\n¿Podéis confirmar disponibilidad y franja horaria? Gracias.`;
-  const wa='https://wa.me/34600000000?text='+encodeURIComponent(msg);
-  window.open(wa,'_blank');
 }
 document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
   anchor.addEventListener('click',e=>{
