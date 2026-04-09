@@ -74,7 +74,7 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;border:none;background:non
 .hero-right{background:linear-gradient(180deg,rgba(201,75,31,.18) 0%,rgba(14,14,12,0) 35%),var(--black);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;animation:fadeIn .8s .1s ease both}
 .h-bg-pat{position:absolute;inset:0;background-image:radial-gradient(circle at 30% 40%,rgba(201,75,31,.18) 0%,transparent 60%),radial-gradient(circle at 80% 80%,rgba(201,75,31,.08) 0%,transparent 50%)}
 .h-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:40px 40px}
-.hero-phone{width:200px;height:400px;background:var(--gray-900);border-radius:36px;border:2px solid rgba(255,255,255,.1);position:relative;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.05);animation:float 5s ease-in-out infinite;z-index:2}
+.hero-phone{width:250px;height:500px;background:var(--gray-900);border-radius:36px;border:2px solid rgba(255,255,255,.1);position:relative;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.05);animation:float 5s ease-in-out infinite;z-index:2}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 .phone-notch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:60px;height:6px;background:rgba(0,0,0,.8);border-radius:3px;z-index:2}
 .phone-content{position:absolute;inset:0;background:linear-gradient(160deg,#ff6a00,#ff3d00);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:2rem 1.5rem}
@@ -94,6 +94,12 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;border:none;background:non
 .fb-icon{font-size:1.1rem}.fb-sub{font-size:.68rem;font-weight:400;color:var(--gray-500);display:block;line-height:1.05}
 .fb-tl{top:20%;left:3%;animation:float2 4s ease-in-out infinite}
 .fb-br{bottom:20%;right:3%;animation:float2 5s ease-in-out infinite .8s}
+.fb-tl{padding:1.3rem 1.6rem;font-size:1.18rem;gap:14px;border-radius:20px;box-shadow:0 16px 46px rgba(0,0,0,.38)}
+.fb-tl .fb-icon{font-size:1.7rem}
+.fb-tl .fb-sub{font-size:.94rem}
+.fb-br{padding:1.3rem 1.6rem;font-size:1.18rem;gap:14px;border-radius:20px;box-shadow:0 16px 46px rgba(0,0,0,.38)}
+.fb-br .fb-icon{font-size:1.7rem}
+.fb-br .fb-sub{font-size:.94rem}
 @keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 
 .phone-mini-badge{position:absolute;z-index:4;font-size:.68rem;font-weight:900;letter-spacing:.04em;padding:.35rem .65rem;border-radius:10px;text-transform:uppercase}
@@ -101,6 +107,7 @@ button{font-family:'Outfit',sans-serif;cursor:pointer;border:none;background:non
 .phone-mini-badge.pm-g{background:rgba(26,79,138,.25);border:1px solid rgba(26,79,138,.35);color:#9CC9FF;right:12px;left:auto;bottom:92px}
 .phone-screen-sos{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;margin-top:8px}
 .phone-wrench{font-size:2.2rem;line-height:1}
+.phone-mascot{width:225px;max-width:92%;height:auto;display:block;filter:drop-shadow(0 14px 24px rgba(0,0,0,.34))}
 
 /* TICKER */
 .ticker-bar{background:var(--black);color:rgba(255,255,255,.6);padding:.65rem 0;overflow:hidden;font-size:.82rem;font-weight:500}
@@ -540,7 +547,7 @@ footer{background:var(--black);color:rgba(255,255,255,.55)}
       <div class="phone-notch"></div>
       <div class="phone-content">
         <div class="phone-screen-sos">
-          <div class="phone-wrench">🔧</div>
+          <img class="phone-mascot" src="./assets/mascota-fieraphone.png" alt="Mascota FieraPhone">
           <div class="phone-app-name">SOS</div>
         </div>
       </div>
