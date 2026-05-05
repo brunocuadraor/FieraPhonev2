@@ -232,6 +232,66 @@ async function handleApi(req, res, pathname) {
     return sendJson(res, 201, { ok: true, bookingId: booking.id, whatsappUrl: buildWhatsAppUrl(message) });
   }
 
+  if (req.method === "POST" && pathname === "/api/chat") {
+    const body = await readBody(req);
+    const message = String(body.message || "").trim();
+
+    // IA con Hugging Face (opcional) o fallback inteligente
+    if (process.env.HF_TOKEN) {
+      try {
+        const hfResponse = await fetch("https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${process.env.HF_TOKEN}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            inputs: `<s>[INST] <<SYS>>
+Eres el asistente de FieraPhone, una tienda de reparación de móviles en Castilla y León. Respondes de forma concisa, amable y profesional. Sabes sobre precios, horarios, servicios a domicilio, garantías y reparaciones.
+
+Servicios: pantallas (29€), baterías (19€), móviles mojados, cámaras, botones, etc.
+Horario: L-V 9:00-19:00, S 9:00-14:00.
+Domicilio: Sí en toda Castilla y León.
+Garantía: 3 meses.
+
+Responde en español.
+<</SYS>>
+
+${message} [/INST]</s>`,
+            parameters: { max_new_tokens: 150, temperature: 0.7, top_p: 0.95 }
+          })
+        });
+        const result = await hfResponse.json();
+        let reply = Array.isArray(result) ? result[0]?.generated_text?.replace(/<s>.*?\[\/INST\]\s*/, "") : "IA: " + JSON.stringify(result);
+        return sendJson(res, 200, { reply, ai: true });
+      } catch (e) {
+        console.error("HF error:", e);
+      }
+    }
+
+    // Fallback inteligente con palabras clave
+    const responses = [
+      { keywords: ["pantalla", "screen", "rota", "roto", "cristal", "glass"], reply: "¿Tu móvil tiene la pantalla rota? La reparamos desde 29€. Incluye digitizador, envío gratis y garantía de 3 meses." },
+      { keywords: ["bateria", "batería", "carga", "cargo", "duración"], reply: "¿La batería no dura? La sustituimos por 19€ en 20 minutos. Cambio mientras esperas con garantía." },
+      { keywords: ["agua", "mojado", "liquido", "agua", "humo"], reply: "¿Se mojó el móvil? Trae tu dispositivo cuanto antes para diagnóstico gratuito. Tasa de éxito del 85% si vienes rápido." },
+      { keywords: ["domicilio", "recogida", "envio", "entrega", "recoger"], reply: "¡Sí! Servicio de recogida y entrega a domicilio en toda Castilla y León. Pide cita sin compromiso por WhatsApp." },
+      { keywords: ["precio", "costo", "cuanto", "dinero", "presupuesto"], reply: "Los precios dependen del modelo y avería. La mayoría de reparaciones están entre 19€ y 89€. Consulta exacto sin compromiso." },
+      { keywords: ["tiempo", "rapido", "urgente", "cuando"], reply: "Reparaciones simples: 20-60 min. Complejas: 24-48h. Urgente con prioridad por 5€ extra." },
+      { keywords: ["horario", "hora", "abierto", "cerrar"], reply: "Lunes a Viernes: 9:00 - 19:00. Sábados: 9:00 - 14:00. Domingos cerrado." },
+      { keywords: ["ubicacion", "donde", "dirección", "tienda"], reply: "Estamos en Castilla y León (Burgos, León, Salamanca, Valladolid). Escríbenos para confirmar según tu localidad." },
+      { keywords: ["whatsapp", "wa", "contacto"], reply: "¡Claro! Escríbenos por WhatsApp al 600 000 000 para atención inmediata. Respuesta garantizada en minutos." },
+      { keywords: ["garantia", "garantía"], reply: "Todos nuestros trabajos tienen garantía de 3 meses. Incluye piezas y mano de obra." },
+      { keywords: ["consola", "consolas", "play", "ps4", "ps5", "xbox", "nintendo", "switch"], reply: "Lo sentimos, en FieraPhone nos especializamos únicamente en reparación de móviles y tablets. No reparamos consolas de videojuegos. ¿Te ayudo con tu móvil o tablet?" },
+    ];
+
+    let reply = "No estoy seguro de entender tu pregunta. Puedo ayudarte con: reparaciones de móviles/tablets, precios, servicio a domicilio, horarios y garantías. ¿Sobre qué tema quieres saber más?";
+    const msg = message.toLowerCase();
+    for (const item of responses) {
+      if (item.keywords.some(k => msg.includes(k))) { reply = item.reply; break; }
+    }
+    return sendJson(res, 200, { reply, ai: false });
+  }
+
   if (req.method === "POST" && pathname === "/api/contacts") {
     const body = await readBody(req);
     if (!body.type || !body.payload) {
